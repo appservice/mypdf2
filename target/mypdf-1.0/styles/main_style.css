@@ -1,0 +1,45 @@
+ @CHARSET "UTF-8";
+ body{
+ padding-top: 50px;
+ }
+ 
+ #footer {
+	margin-top: 70px;
+}
+
+.red-text{
+	color:red;
+}
+
+
+
+#navbar_main {
+	background-color: rgba(0, 0, 0, 0.70);
+	color:white;
+}
+
+.red_background{
+	background-color:#dfdfcf;
+}
+
+.myGrid{
+	
+	width:99%;
+	height:650px;
+}
+
+
+footer {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	border-top: 1px solid #E5E5E5;
+	background-color: #bdc3c7;
+}
+/* .green { background-color: inherit !important; }*/
+.blue{background-color: red !important; } 
+/* .ui-grid-row .ui-grid-cell { background-color: inherit !important; } */
+
+
+	.ng-enter 			{ animation: scaleUp 0.5s both ease-in; z-index: 8888; } 
+	.ng-leave 			{ animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }

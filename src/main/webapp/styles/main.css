@@ -1,0 +1,187 @@
+@CHARSET "UTF-8";
+
+.page-header {
+	margin-top: 0;
+}
+
+.panel-body {
+	padding-top: 0;
+}
+
+.img-responsive {
+	margin-bottom: 15px;
+}
+
+ #filter-group{
+	color:#23ff23;
+} 
+
+.red-text{
+	color:red;
+}
+
+#footer {
+	margin-top: 70px;
+}
+
+#main_container {
+	padding-bottom: 80px;
+}
+
+body {
+	padding-top: 120px;
+}
+
+#navbar_main {
+	background-color: rgba(0, 0, 0, 0.70);
+	color:white;
+}
+
+.red_background{
+	background-color:#dfdfcf;
+}
+
+.bounce.ng-enter, .bounce.ng-leave {
+	position: absolute;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+}
+
+.bounce.ng-enter {
+	-webkit-animation-name: bounceInDown;
+	animation-name: bounceInDown;
+}
+
+.bounce.ng-leave {
+	-webkit-animation-name: bounceOutDown;
+	animation-name: bounceOutDown;
+}
+
+.myGrid{
+	
+	width:99%;
+	height:700px;
+}
+#masterUI { //very important! .transition(all 1s);
+	
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+footer {
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	border-top: 1px solid #E5E5E5;
+	background-color: #bdc3c7;
+}
+
+.div_center{
+	margin-left:auto;
+	margin-right:auto;	
+/* 	width:600px; 
+ */	text-align: center;
+    margin-bottom: 20px;
+	
+	
+}
+form {
+    padding: 10px 25px;
+}
+.fake-uploader {
+    border: 1px solid #a9a9a9;
+    width: 300px;
+}
+label {
+/*     background: url("cloud.png") no-repeat scroll center 4px rgba(0, 0, 0, 0); */
+    display: inline-block;
+    height: 35px;
+    padding: 5px 0 0;
+    width: 50px;
+}
+input {
+    border: 0 none;
+    display: inline-block;
+    height: 40px;
+    outline: 0 none;
+    vertical-align: top;
+    width: 240px;
+}
+.progress {
+    border: 1px solid #a9a9a9;
+    border-radius: 4px;
+    height: 8px;
+    margin: 5px 0 0;
+    overflow: hidden;
+    width: 300px;
+}
+.bar {
+    background: none repeat scroll 0 0 green;
+    border-radius: 2px;
+    height: 8px;
+    width: 0;
+}
+
+
+
+/* ANIMATIONS
+============================================================================= */
+
+/* leaving animations ----------------------------------------- */
+/* rotate and fall */
+@keyframes rotateFall {
+	0% 		{ transform: rotateZ(0deg); }
+	20% 	{ transform: rotateZ(10deg); animation-timing-function: ease-out; }
+	40% 	{ transform: rotateZ(17deg); }
+	60% 	{ transform: rotateZ(16deg); }
+	100% 	{ transform: translateY(100%) rotateZ(17deg); }
+}
+
+/* slide in from the bottom */
+@keyframes slideOutLeft {
+	to 		{ transform: translateX(-100%); }
+}
+
+/* rotate out newspaper */
+@keyframes rotateOutNewspaper {
+	to 		{ transform: translateZ(-3000px) rotateZ(360deg); opacity: 0; }
+}
+
+/* entering animations --------------------------------------- */
+/* scale up */
+@keyframes scaleUp {
+	from 	{ opacity: 0.3; -webkit-transform: scale(0.8); }
+}
+
+/* slide in from the right */
+@keyframes slideInRight {
+	from 	{ transform:translateX(100%); }
+	to 		{ transform: translateX(0); }
+}
+
+/* slide in from the bottom */
+@keyframes slideInUp {
+	from 	{ transform:translateY(100%); }
+	to 		{ transform: translateY(0); }
+}
+
+	.ng-enter 			{ animation: scaleUp 0.5s both ease-in; z-index: 8888; } 
+	.ng-leave 			{ animation: slideOutLeft 0.5s both ease-in; z-index: 9999; }

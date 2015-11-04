@@ -1,0 +1,29 @@
+<!-- ------------------filter menu ----------------- -->
+<div class="container" >
+		<div class="navbar navbar-inverse navbar-fixed-top " id="navbar_main">
+		
+		<!-- toggle when the width smaller than ....  -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+				</button>
+				<div class="collapse navbar-collapse">
+						<div class="navbar-brand">Dodaj dane:</div>
+						<!--  <div id="filter-group">  -->
+						<form class="navbar-form  center-block   " style="display: inline;">
+
+								<span class="navbar-form navbar-right">
+										<input type="file" style="display: inline" class="" name="selectedFile" accept="text/html" id="selectedFile"
+												value="wybierz plik" title="Wybierz plik który chcesz wgrać." class="form-control color-green" />
+												<input type="text" id="orderReferenceInputTxt" name="orderReferenceInputTxt" placeholder="referencja"
+												style="display: inline;  color: black;margin-right: 20px" class="form-control red-text" >
+										<button id="sendFile" class="btn btn-danger form-control"  style="margin-right:20px;"  data-ng-click="$parent.uploadFile()">wyślij</button> <!--$parent.uploadFile()  -->
+										
+								</span>
+						</form>
+						
+				</div>
+		</div>
+</div>
