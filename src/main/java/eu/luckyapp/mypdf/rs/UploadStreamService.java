@@ -2,7 +2,6 @@ package eu.luckyapp.mypdf.rs;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.security.RolesAllowed;
@@ -14,13 +13,13 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
+import eu.luckyapp.mypdf.model.Order;
 import eu.luckyapp.mypdf.model.TableView;
 import eu.luckyapp.parsers.OrderParser;
 import eu.luckyapp.parsers.ParserException;
@@ -44,7 +43,7 @@ public class UploadStreamService {
 	@POST
 	@Path("/upload")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@RolesAllowed(value="admin")
+	@RolesAllowed(value="ADMIN")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response uploadFile(@MultipartForm UploadedFileMultiForm form)  {
 
@@ -58,14 +57,15 @@ public class UploadStreamService {
 
 	
 			//LOG.info(output);
-
-			List<TableView> addedItems=addToDB(output,orderReference);
-			if(addedItems.size()>0){
+         Order order=addOrderToDb(output,orderReference);
+         return Response.accepted(order).build();
+			//List<TableView> addedItems=addToDB(output,orderReference);
+		//	if(addedItems.size()>0){
 			
-				GenericEntity<List<TableView>> urisWrapper=new GenericEntity<List<TableView>>(addedItems){};
-				return Response.status(201).entity(urisWrapper).build();
-			}
-			return Response.serverError().entity("Incorrect type of file uploaded!").build();
+		//		GenericEntity<List<TableView>> urisWrapper=new GenericEntity<List<TableView>>(addedItems){};
+		//		return Response.status(201).entity(urisWrapper).build();
+		//	}
+		//	return Response.serverError().entity("Incorrect type of file uploaded!").build();
 
 		} catch (ParserException | UnsupportedEncodingException e) { 
 			e.printStackTrace();
@@ -88,5 +88,14 @@ public class UploadStreamService {
 
 		}*/
 		return null;
+	}
+	
+	private Order addOrderToDb(String textToParse,String orderReference) throws ParserException{
+		Order order= op.parseToOrder(textToParse);
+		order.setOrderReference(orderReference);
+		LOG.info(order.toString());
+		 em.persist(order);
+		 return order;
+		
 	}
 }

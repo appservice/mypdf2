@@ -3,16 +3,16 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>mypdf</groupId>
-	<artifactId>mypdf</artifactId>
+	<groupId>mypdf2</groupId>
+	<artifactId>mypdf2</artifactId>
 	<version>1.0</version>
 	<packaging>war</packaging>
-	<name>mypdf</name>
+	<name>mypdf2</name>
 	<properties>
 		<maven.compiler.fork>true</maven.compiler.fork>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.7</maven.compiler.source>
-		<maven.compiler.target>1.7</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<version.furnace>2.12.1.Final</version.furnace>
 		<maven.compiler.executable>${env.OPENSHIFT_WILDFLY_DIR}usr/lib/jvm/jdk1.8.0_05/bin/javac</maven.compiler.executable>
 	</properties>
@@ -76,7 +76,7 @@
 		<profile>
 			<id>openshift</id>
 			<build>
-				<finalName>mypdf</finalName>
+				<finalName>mypdf2</finalName>
 				<plugins>
 					<plugin>
 						<artifactId>maven-war-plugin</artifactId>

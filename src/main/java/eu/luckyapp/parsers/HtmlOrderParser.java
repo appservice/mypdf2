@@ -172,7 +172,7 @@ public class HtmlOrderParser implements OrderParser {
 
 		}
 
-		LOG.log(Level.WARNING, itemsDataList.toString());
+		//LOG.log(Level.WARNING, itemsDataList.toString());
 	//	return parsedDataList;
 
 	}
@@ -208,13 +208,14 @@ public class HtmlOrderParser implements OrderParser {
 		
 		List<Item> items=new ArrayList<>();
 		for(String[] itemData:itemsDataList){
+			
 			Item item=new Item();
 			item.setPositionInOrder(Integer.parseInt(itemData[0]));
 			item.setIndex(itemData[1]);
 			item.setName(itemData[2]);
-			item.setAmount(Double.valueOf(itemData[3]));
+			item.setAmount(Double.valueOf(itemData[3].replace(",", ".")));
 			item.setUnit(itemData[4]);
-			item.setPrice(Double.valueOf(itemData[5]));
+			item.setPrice(Double.valueOf(itemData[5].replace(",", ".")));
 			item.setCurrency(itemData[6]);
 			item.setMpk(itemData[7]);
 			item.setBudget(itemData[8]);
@@ -231,8 +232,9 @@ public class HtmlOrderParser implements OrderParser {
 			
 			items.add(item);
 		}
-		
+		LOG.warning(items.toString());
 	     order.setItems(items);
+	     LOG.warning(order.toString());
 
 		return order;
 	}

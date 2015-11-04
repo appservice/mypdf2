@@ -4,9 +4,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.apache.poi.hslf.util.SystemTimeUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import eu.luckyapp.mypdf.model.Order;
 
 public class HtmlOrderParserTest {
 	private HtmlOrderParser parser;
@@ -45,10 +48,12 @@ public class HtmlOrderParserTest {
 	
 	
 	@Test
-	public void testParseToTableView(){
+	public void testParseToTableView() throws ParserException{
 	//	try {
 			System.out.println(text);
 			
+			Order o=parser.parseToOrder(text);
+			System.out.println(o);
 		//	System.out.println(parser.parseToTableView(text).toString());
 			
 			//System.out.println(parser.toString());

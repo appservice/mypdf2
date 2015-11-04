@@ -13,9 +13,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  */
 @Entity
-@Table(name = "ORDER")
+@Table(name = "PURCHASE_ORDER")
 @XmlRootElement
+@NamedQuery(name=Order.FIND_ALL,query="SELECT o FROM Order o")
 public class Order implements Serializable {
+	public static final String FIND_ALL="findAll";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", updatable = false, nullable = false)
@@ -43,13 +46,20 @@ public class Order implements Serializable {
 	@Column
 	private String orderReference;
 
-	@Column(length = 3)
+	@Column(length = 4)
 	private String suppliesGroup;
 	
-	@OneToMany(mappedBy="order")
+	@OneToMany(mappedBy="order",fetch=FetchType.EAGER)
 	private List<Item> items;
 
 	
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", version=" + version + ", number=" + number + ", date=" + date + ", purchaser="
+				+ purchaser + ", supplier=" + supplier + ", factory=" + factory + ", orderReference=" + orderReference
+				+ ", suppliesGroup=" + suppliesGroup + ", items=" + items + "]";
+	}
 
 	public Long getId() {
 		return id;

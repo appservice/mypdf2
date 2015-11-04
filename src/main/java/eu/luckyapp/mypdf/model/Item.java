@@ -228,7 +228,7 @@ public class Item implements Serializable {
 	public void setReleased(boolean isReleased) {
 		this.isReleased = isReleased;
 	}
-
+	
 	public int getPositionInOrder() {
 		return positionInOrder;
 	}
@@ -251,6 +251,17 @@ public class Item implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", version=" + version + ", order=" + order + ", index=" + index + ", name=" + name
+				+ ", mpk=" + mpk + ", budget=" + budget + ", isDispatched=" + isDispatched + ", amount=" + amount
+				+ ", unit=" + unit + ", price=" + price + ", currency=" + currency + ", expectedDeliveryDate="
+				+ expectedDeliveryDate + ", deliveryDate=" + deliveryDate + ", warehouseReleaseDate="
+				+ warehouseReleaseDate + ", warehouseReleasePerson=" + warehouseReleasePerson + ", isReleased="
+				+ isReleased + ", positionInOrder=" + positionInOrder + ", partialDeliveryGoodsAmount="
+				+ partialDeliveryGoodsAmount + ", description=" + description + "]";
 	}
 
 }

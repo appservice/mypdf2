@@ -2,7 +2,7 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-	<display-name>mypdf</display-name>
+	<display-name>mypdf2</display-name>
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
@@ -18,10 +18,10 @@
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>admin</role-name>
+			<role-name>ADMIN</role-name>
 		</auth-constraint>
-	</security-constraint>
-	<security-constraint>
+	</security-constraint> 
+	<!-- <security-constraint>
 		<web-resource-collection>
 			<url-pattern>/*</url-pattern>
 			<http-method>GET</http-method>
@@ -29,7 +29,7 @@
 		<auth-constraint>
 			<role-name>only_reading</role-name>
 		</auth-constraint>
-	</security-constraint>
+	</security-constraint> -->
 	<login-config>
 		<auth-method>BASIC</auth-method>
 		<realm-name>ApplicationRealm</realm-name>
@@ -38,6 +38,6 @@
 		<role-name>only_reading</role-name>
 	</security-role>
 	<security-role>
-		<role-name>admin</role-name>
+		<role-name>ADMIN</role-name>
 	</security-role>
 </web-app>
