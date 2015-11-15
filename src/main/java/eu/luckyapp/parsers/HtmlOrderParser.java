@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -19,7 +21,10 @@ import eu.luckyapp.mypdf.model.Item;
 import eu.luckyapp.mypdf.model.Order;
 
 public class HtmlOrderParser implements OrderParser {
-	private static final Logger LOG = Logger.getLogger(HtmlOrderParser.class.getName());
+	
+	@Inject
+	private Logger Log ;
+	
 	private static final String START_ORDER_TAG = "Raport ZZAM5 Can-Pack S.A.";
 	private static final String[] FIRST_TABLE_TAG = { "C.Zysku", "Rezerwacja /poz.", "Data dost." };
 	private static final String END_TABLE_TAG = "Netto";
@@ -37,7 +42,7 @@ public class HtmlOrderParser implements OrderParser {
 
 			Elements elements = doc.getElementsByTag("nobr");
 
-			LOG.info(elements.toString());
+		//	Log.info(elements.toString());
 
 			int htmlTagNumber = 0;
 			int itemTagNumber = 0;
@@ -55,7 +60,7 @@ public class HtmlOrderParser implements OrderParser {
 					orderHeaderDatas = new String[5];
 				}
 
-				// LOG.info(htmlTagNumber + " :" + itemTagNumber + " " +
+				// Log.info(htmlTagNumber + " :" + itemTagNumber + " " +
 				// e.ownText());
 
 				switch (htmlTagNumber) {
@@ -80,7 +85,7 @@ public class HtmlOrderParser implements OrderParser {
 					orderHeaderDatas[4] = e.ownText();// ordering person
 					break;
 				}
-				// LOG.info(orderHeaderDatas[0]);
+				// Log.info(orderHeaderDatas[0]);
 				/*
 				 * for(String test:orderHeaderDatas){ System.out.println(test);
 				 * }
@@ -167,12 +172,12 @@ public class HtmlOrderParser implements OrderParser {
 				// return parsedDataList;
 			}
 		} catch (Exception e) {
-			LOG.log(Level.WARNING, "Date Parse error");
+			Log.log(Level.WARNING, "Date Parse error");
 			throw new ParserException("ParserException ", e);
 
 		}
 
-		//LOG.log(Level.WARNING, itemsDataList.toString());
+		//Log.log(Level.WARNING, itemsDataList.toString());
 	//	return parsedDataList;
 
 	}
@@ -228,13 +233,14 @@ public class HtmlOrderParser implements OrderParser {
 				throw new ParserException("Expected delivery date parse on item parse exception!",e);
 			}
 			
-			
+			item.setOrder(order);
 			
 			items.add(item);
+			//order.getItems().add(item);
 		}
-		LOG.warning(items.toString());
+		Log.warning(items.toString());
 	     order.setItems(items);
-	     LOG.warning(order.toString());
+	     Log.warning(order.toString());
 
 		return order;
 	}

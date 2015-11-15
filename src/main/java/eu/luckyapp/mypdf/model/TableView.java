@@ -9,11 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.lang.Override;
 
 @Entity
 @Table(name = "TABLE_VIEW")
@@ -27,7 +27,8 @@ public class TableView implements Serializable
    private static final long serialVersionUID = -4820835501727776045L;
 
    @Id
-   @GeneratedValue(strategy = GenerationType.AUTO)
+ //  @TableGenerator(name="OrderIdTable")
+ //  @GeneratedValue(strategy = GenerationType.TABLE,generator="OrderIdTable")
    @Column(name = "id", updatable = false, nullable = false)
    private Long id;
    @Version

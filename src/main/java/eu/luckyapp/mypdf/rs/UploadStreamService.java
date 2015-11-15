@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,6 +18,7 @@ import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
+import eu.luckyapp.mypdf.dao.OrderDAO;
 import eu.luckyapp.mypdf.model.Order;
 import eu.luckyapp.mypdf.model.TableView;
 import eu.luckyapp.parsers.OrderParser;
@@ -31,8 +31,11 @@ public class UploadStreamService {
 	public static final Logger LOG = Logger.getLogger(UploadStreamService.class
 			.getName());
 
+	//@Inject
+	//EntityManager em;
+	
 	@Inject
-	EntityManager em;
+	OrderDAO orderDAO;
 
 	@Inject
 	OrderParser op;
@@ -94,7 +97,8 @@ public class UploadStreamService {
 		Order order= op.parseToOrder(textToParse);
 		order.setOrderReference(orderReference);
 		LOG.info(order.toString());
-		 em.persist(order);
+		// em.persist(order);
+		orderDAO.create(order);
 		 return order;
 		
 	}

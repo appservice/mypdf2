@@ -3,6 +3,7 @@ package eu.luckyapp.mypdf.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,9 +13,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Entity implementation class for Entity: Item
@@ -22,12 +26,15 @@ import javax.persistence.Version;
  */
 @Entity
 @Table(name = "item")
+@XmlRootElement
 public class Item implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@TableGenerator(name="ItemIdTable",table="ID_ORDER_SEQUENCE",pkColumnName="PK",pkColumnValue="ITEM_PK",initialValue=0,allocationSize=1)
+	@GeneratedValue(strategy = GenerationType.TABLE,generator="ItemIdTable")
 	@Column(name = "ID", updatable = false, nullable = false)
 	private Long id;
 
@@ -35,8 +42,8 @@ public class Item implements Serializable {
 	@Column(name = "version")
 	private int version;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ORDER_ID")
+	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+	//@JoinColumn(name = "PURCHASE_ORDER_ID")
 	private Order order;
 
 	@Column(length = 18)
@@ -109,12 +116,13 @@ public class Item implements Serializable {
 		this.version = version;
 	}
 
+	@XmlTransient
 	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setOrder(Order myOrder) {
+		this.order = myOrder;
 	}
 
 	public String getIndex() {

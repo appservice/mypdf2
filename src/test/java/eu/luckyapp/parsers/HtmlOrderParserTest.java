@@ -22,7 +22,7 @@ public class HtmlOrderParserTest {
 
 		parser = new HtmlOrderParser();
 
-		Path file = Paths.get("/home/luke/Pobrane/4500413690.htm");//4500413761.htm");//4500413690.htm");//4500413761.htm  4500413690.htm
+		Path file = Paths.get("d:///4500450384.htm");//4500413761.htm");//4500413690.htm");//4500413761.htm  4500413690.htm
 		text = new String(Files.readAllBytes(file));
 
 	}

@@ -1,11 +1,24 @@
 package eu.luckyapp.mypdf.model;
 
 import java.io.Serializable;
-import java.lang.String;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -15,12 +28,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "PURCHASE_ORDER")
 @XmlRootElement
-@NamedQuery(name=Order.FIND_ALL,query="SELECT o FROM Order o")
+@NamedQueries({
+		@NamedQuery(name = Order.FIND_ALL, query = "SELECT o FROM Order  o "),
+		@NamedQuery(name = Order.FIND_BY_NUMBER, query = "SELECT o FROM Order  o where o.number =:orderNumber") })
 public class Order implements Serializable {
-	public static final String FIND_ALL="findAll";
-	
+	public static final String FIND_ALL = "findAll";
+	public static final String FIND_BY_NUMBER = "findByNumber";
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	@TableGenerator(name = "OrderIdTable", table = "ID_ORDER_SEQUENCE", pkColumnName = "PK", pkColumnValue = "ORDER_PK", initialValue = 0, allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.TABLE, generator = "OrderIdTable")
 	@Column(name = "ID", updatable = false, nullable = false)
 	private Long id;
 
@@ -28,7 +46,7 @@ public class Order implements Serializable {
 	@Column(name = "version")
 	private int version;
 
-	@Column(unique=true)
+	@Column(unique = true)
 	private String number;
 
 	@Temporal(TemporalType.DATE)
@@ -48,17 +66,18 @@ public class Order implements Serializable {
 
 	@Column(length = 4)
 	private String suppliesGroup;
-	
-	@OneToMany(mappedBy="order",fetch=FetchType.EAGER)
-	private List<Item> items;
 
-	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
+	// mappedBy="myOrder"
+	// ,
+	private List<Item> items;
 
 	@Override
 	public String toString() {
 		return "Order [id=" + id + ", version=" + version + ", number=" + number + ", date=" + date + ", purchaser="
 				+ purchaser + ", supplier=" + supplier + ", factory=" + factory + ", orderReference=" + orderReference
-				+ ", suppliesGroup=" + suppliesGroup + ", items=" + items + "]";
+				+ ", suppliesGroup=" + suppliesGroup
+				+ /* ", items=" + items + */"]";
 	}
 
 	public Long getId() {
@@ -83,12 +102,12 @@ public class Order implements Serializable {
 		super();
 	}
 
-	public String getName() {
+	public String setNumber() {
 		return this.number;
 	}
 
-	public void setName(String name) {
-		this.number = name;
+	public void geNumber(String number) {
+		this.number = number;
 	}
 
 	public Date getDate() {
@@ -138,7 +157,7 @@ public class Order implements Serializable {
 	public void setSuppliesGroup(String suppliesGroup) {
 		this.suppliesGroup = suppliesGroup;
 	}
-	
+
 	public String getNumber() {
 		return number;
 	}
