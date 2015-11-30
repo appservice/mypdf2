@@ -2,20 +2,35 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
  <display-name>mypdf2</display-name>
+ <context-param>
+  <param-name>PARAMETER_ENCODING</param-name>
+  <param-value>UTF-8</param-value>
+ </context-param>
+ <context-param>
+  <param-name>default-encoding</param-name>
+  <param-value>UTF-8</param-value>
+ </context-param>
  <session-config>
-  <session-timeout>30</session-timeout>
+  <session-timeout>-1</session-timeout>
  </session-config>
  <mime-mapping>
   <extension>ico</extension>
   <mime-type>image/x-icon</mime-type>
  </mime-mapping>
  <welcome-file-list>
-  <welcome-file>/material_ang.html</welcome-file>
+  <welcome-file>/index.html</welcome-file>
  </welcome-file-list>
  <security-constraint>
   <web-resource-collection>
    <web-resource-name>main</web-resource-name>
    <url-pattern>/*</url-pattern>
+   <http-method>GET</http-method>
+   <http-method>POST</http-method>
+   <http-method>PUT</http-method>
+   <http-method>DELETE</http-method>
+   <http-method>HEAD</http-method>
+   <http-method>OPTIONS</http-method>
+   <http-method>TRACE</http-method>
   </web-resource-collection>
   <auth-constraint>
    <role-name>ADMIN</role-name>
@@ -28,17 +43,22 @@
    <http-method>GET</http-method>
   </web-resource-collection>
   <auth-constraint>
-   <role-name>only_reading</role-name>
+   <role-name>MONITOR</role-name>
   </auth-constraint>
  </security-constraint>
  <login-config>
-  <auth-method>BASIC</auth-method>
+  <auth-method>FORM</auth-method>
   <realm-name>ApplicationRealm</realm-name>
+  <form-login-config>
+   <form-login-page>/views/login.html</form-login-page>
+   <form-error-page>/views/login_error.html</form-error-page>
+  </form-login-config>
  </login-config>
  <security-role>
-  <role-name>only_reading</role-name>
+  <role-name>ADMIN</role-name>
  </security-role>
  <security-role>
-  <role-name>ADMIN</role-name>
+  <description>ROLE WITHOUT RIGHT TO CHANGE ANYTHING -ONLY FOR MONITORING</description>
+  <role-name>MONITOR</role-name>
  </security-role>
 </web-app>

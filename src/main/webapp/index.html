@@ -5,34 +5,77 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Baza zamówień</title>
-<link rel="stylesheet" type="text/css" href="scripts/bootstrap/css/bootstrap.css" />
-<link rel="stylesheet" type="text/css" href="styles/main_style.css" />
-
-<link rel="styleSheet" href="scripts/angular/ui_grid/ui-grid.min.css"/>
+<link rel="stylesheet" type="text/css" href="styles/app.css" />
+<link rel="stylesheet" type="text/css" href="scripts/library/bootstrap-3.3.5/css/bootstrap.min.css" />
+ <link rel="stylesheet" type="text/css" href="scripts/library/angular_material/angular-material.min.css" /> 
 </head>
 
-<body data-ng-app="ngApp">
+<body data-ng-app="myApp" data-ng-cloak="">
 		<!-- ------------------header and menu----------------- -->
 		<!--  <div data-ng-include="" src="'templates/header.html'"></div>  -->
 		<!--  <div data-my-filter-inject ></div>  -->
 		<!-- ------------------content------------------------- -->
-	 	<div data-ng-view=""></div> 
+		
+		 <!-- HEADER AND NAVBAR -->
+      <header>
+            <nav class="navbar navbar-default ">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Baza danych zamówień</a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right ">
+                    <li><a href="#orders-table"><i class="fa fa-home" data-ng-click="toggleRight()"></i> Wyszukaj zamówienie</a></li>
+                    <li><a href="#add-order"><i class="fa fa-shield"></i> Dodaj zamówienie</a></li>
+                  <!--    <li><a href="#"><i class="fa fa-comment"></i> Contact</a></li>-->
+                    <li><a href="#logout" data-ng-click="logout()" >Wyloguj: <strong data-ng-cloak>{{currentUser.name}}</strong></a>
+                </ul>
+            </div>
+            </nav>
+        </header>
+		
+		
+		<div data-ng-view=""></div> 
 	
 		<!-- ------------------footer----------------- -->
 	 	<div data-ng-include="" src="'templates/footer.html'"></div> 
 		<!-- -------------------loaded  scripts---------------------------- -->
-		<script src="scripts/vendor/modernizr-2.8.3.min.js"></script>
-		<script src="scripts/vendor/jquery-2.0.3.js"></script>
-		<script src="scripts/angular/angular.min.js"></script>
-		<script src="scripts/angular/angular-route.min.js"></script>
-		<script src="scripts/angular/angular-resource.min.js"></script>
-		<script src="scripts/angular/angular-touch.min.js"></script>
-		<script src="scripts/bootstrap/js/bootstrap.min.js"></script>
-<script src="scripts/angular/ui_grid/ui-grid.min.js"></script>
-		<!-- my scripts  -->
-		<script src="scripts/ngApp.js"></script>
-		<script src="scripts/directives/directives.js"></script>
-		<script src="scripts/services/services.js"></script>
-		<script src="scripts/controllers/controller.js"></script>
-</body>
+
+<!--   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="scripts/library/jquery-2.1.4.min.js"></script>
+
+<!-- Angular Material Dependencies-->
+<script src="scripts/library/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+
+
+	<script src="scripts/library/angular-1.4.7/angular.min.js"></script>
+	<script src="scripts/library/angular-1.4.7/angular-animate.min.js"></script>
+	<script src="scripts/library/angular-1.4.7/angular-aria.min.js"></script>
+	<script src="scripts/library/angular-1.4.7/angular-route.min.js"></script>
+<!-- 	<script src="scripts/library/angular-1.4.7/angular-resource.min.js"></script> -->
+	<script src="scripts/library/angular-1.4.7/i18n/angular-locale_pl-pl.js"></script>
+
+	
+	<!-- Or use TAG number for specific version. New versions are auto deployed -->
+
+	<script src="scripts/library/lodash.min.js"></script>
+	
+	<script src="scripts/library/restangular/restangular.min.js"></script>
+<!--  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min.js"></script>-->
+
+
+	<!-- Angular Material Javascript now available via Google CDN; version 0.11.2 used here -->
+	<script src="scripts/library/angular_material/angular-material.min.js"></script>
+
+	<script src="scripts/app/app.js"></script>
+	
+	<!--  controllers-->
+	<script src="scripts/app/controllers/controllers.js"></script>
+	<script src="scripts/app/controllers/ordersTableController.js"></script>
+		<script src="scripts/app/controllers/table2Controller.js"></script>
+	
+	<!--  services-->
+	<script src="scripts/app/services/services.js"></script>
+	<script src="scripts/app/services/RestFullResponseService.js"></script>
+
 </html>

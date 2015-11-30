@@ -7,15 +7,15 @@ import org.jboss.resteasy.annotations.providers.multipart.PartType;
 public class UploadedFileMultiForm {
 
 	
-	private String orderReference;
+	private byte[] orderReference;
 	private byte[] fileData;
 	
-	public String getOrderReference() {
+	public byte[] getOrderReference() {
 		return orderReference;
 	}
 
 	@FormParam("orderReference")
-	public void setOrderReference(String orderReference) {
+	public void setOrderReference(byte[] orderReference) {
 		this.orderReference = orderReference;
 	}
 

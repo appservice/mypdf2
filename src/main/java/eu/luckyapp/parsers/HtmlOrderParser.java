@@ -57,15 +57,15 @@ public class HtmlOrderParser implements OrderParser {
 
 				if (e.ownText().startsWith(START_ORDER_TAG)) {
 					htmlTagNumber = 0; // set 0 if next order is beginning
-					orderHeaderDatas = new String[5];
+					orderHeaderDatas = new String[6];
 				}
 
-				// Log.info(htmlTagNumber + " :" + itemTagNumber + " " +
-				// e.ownText());
+				System.out.println(htmlTagNumber + " :" + itemTagNumber + " " +
+				 e.ownText());
 
 				switch (htmlTagNumber) {
 				case 5:
-					orderHeaderDatas[0] = e.ownText().replace("Zamówienie : ", "");// number
+					orderHeaderDatas[0] = e.ownText().replaceAll("Zam.wienie : ", "");// number
 																					// of
 																					// order
 					break;
@@ -77,8 +77,12 @@ public class HtmlOrderParser implements OrderParser {
 				case 19:
 					orderHeaderDatas[2] = e.ownText();// supplier name
 					break;
+				case 29:
+					orderHeaderDatas[3] = e.ownText().replace("Grupa zaopatrzenia : ", ""); // grupa zaopatrzeniowa
+																							// zaopatrzenia
+					break;
 				case 21:
-					orderHeaderDatas[3] = e.ownText().replace("Dział zaopatrzenia : ", ""); // dział
+					orderHeaderDatas[5] = e.ownText().replaceAll("Dzia. zaopatrzenia : ", ""); // dział
 																							// zaopatrzenia
 					break;
 				case 35:
@@ -209,6 +213,7 @@ public class HtmlOrderParser implements OrderParser {
 	    order.setSupplier(this.orderHeaderDatas[2]);
 		order.setSuppliesGroup(this.orderHeaderDatas[3]);
 		order.setPurchaser(this.orderHeaderDatas[4]);
+		order.setFactory(this.orderHeaderDatas[5]);
 		
 		
 		List<Item> items=new ArrayList<>();
@@ -216,11 +221,11 @@ public class HtmlOrderParser implements OrderParser {
 			
 			Item item=new Item();
 			item.setPositionInOrder(Integer.parseInt(itemData[0]));
-			item.setIndex(itemData[1]);
+			item.setItemIndex(itemData[1]);
 			item.setName(itemData[2]);
-			item.setAmount(Double.valueOf(itemData[3].replace(",", ".")));
+			item.setAmount(Double.valueOf(itemData[3].replace(".", "").replace(",", ".")));
 			item.setUnit(itemData[4]);
-			item.setPrice(Double.valueOf(itemData[5].replace(",", ".")));
+			item.setPrice(Double.valueOf(itemData[5].replace(".", "").replace(",", ".")));
 			item.setCurrency(itemData[6]);
 			item.setMpk(itemData[7]);
 			item.setBudget(itemData[8]);
@@ -238,9 +243,9 @@ public class HtmlOrderParser implements OrderParser {
 			items.add(item);
 			//order.getItems().add(item);
 		}
-		Log.warning(items.toString());
+	//	Log.warning(items.toString());
 	     order.setItems(items);
-	     Log.warning(order.toString());
+	 //    Log.warning(order.toString());
 
 		return order;
 	}

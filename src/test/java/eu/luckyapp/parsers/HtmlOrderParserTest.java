@@ -4,9 +4,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import org.apache.poi.hslf.util.SystemTimeUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.luckyapp.mypdf.model.Order;
@@ -46,7 +46,7 @@ public class HtmlOrderParserTest {
 
 	}
 	
-	
+	@Ignore
 	@Test
 	public void testParseToTableView() throws ParserException{
 	//	try {
@@ -63,4 +63,11 @@ public class HtmlOrderParserTest {
 	//	}
 	}
 
+	
+	@Test
+	public void testParseToOrder()throws ParserException{
+		Order o=parser.parseToOrder(text);
+		System.out.println("to jest to "+o);
+	}
+	
 }

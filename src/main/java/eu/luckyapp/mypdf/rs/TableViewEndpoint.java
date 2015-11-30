@@ -2,7 +2,6 @@ package eu.luckyapp.mypdf.rs;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;

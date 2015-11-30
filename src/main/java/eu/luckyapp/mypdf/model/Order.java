@@ -1,6 +1,7 @@
 package eu.luckyapp.mypdf.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,6 +22,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 /**
  * Entity implementation class for Entity: Order
  *
@@ -28,8 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "PURCHASE_ORDER")
 @XmlRootElement
-@NamedQueries({
-		@NamedQuery(name = Order.FIND_ALL, query = "SELECT o FROM Order  o "),
+@NamedQueries({ @NamedQuery(name = Order.FIND_ALL, query = "SELECT o FROM Order  o "),
 		@NamedQuery(name = Order.FIND_BY_NUMBER, query = "SELECT o FROM Order  o where o.number =:orderNumber") })
 public class Order implements Serializable {
 	public static final String FIND_ALL = "findAll";
@@ -50,6 +53,7 @@ public class Order implements Serializable {
 	private String number;
 
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date date;
 
 	@Column
@@ -61,16 +65,17 @@ public class Order implements Serializable {
 	@Column(length = 4)
 	private String factory;
 
-	@Column
+	@Column(length = 1024)
 	private String orderReference;
 
-	@Column(length = 4)
+	@Column // (length = 4)
 	private String suppliesGroup;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "order")
 	// mappedBy="myOrder"
 	// ,
-	private List<Item> items;
+	@JsonManagedReference
+	private List<Item> items = new ArrayList<>();
 
 	@Override
 	public String toString() {
@@ -126,14 +131,6 @@ public class Order implements Serializable {
 		this.purchaser = purchaser;
 	}
 
-	public String getDeliver() {
-		return this.supplier;
-	}
-
-	public void setDeliver(String deliver) {
-		this.supplier = deliver;
-	}
-
 	public String getFactory() {
 		return this.factory;
 	}
@@ -170,7 +167,7 @@ public class Order implements Serializable {
 		return supplier;
 	}
 
-	public void setSupplier(String supplier) {
+	public void setSupplier(String lier) {
 		this.supplier = supplier;
 	}
 
@@ -182,4 +179,41 @@ public class Order implements Serializable {
 		this.items = items;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((number == null) ? 0 : number.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Order other = (Order) obj;
+		if (number == null) {
+			if (other.number != null) {
+				return false;
+			}
+		} else if (!number.equals(other.number)) {
+			return false;
+		}
+		return true;
+	}
+
+	
 }

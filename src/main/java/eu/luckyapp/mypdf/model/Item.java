@@ -18,7 +18,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * Entity implementation class for Entity: Item
@@ -43,11 +45,15 @@ public class Item implements Serializable {
 	private int version;
 
 	@ManyToOne(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
-	//@JoinColumn(name = "PURCHASE_ORDER_ID")
+	@JsonBackReference
+	@JoinColumn(name = "ORDER_ID",nullable=false)
 	private Order order;
 
-	@Column(length = 18)
-	private String index;
+	@Column(name="index",length = 18)
+	private String itemIndex;
+	
+	@Column
+	private String receivingPerson;
 
 	@Column
 	private String name;
@@ -75,18 +81,26 @@ public class Item implements Serializable {
 
 	@Column
 	@Temporal(TemporalType.DATE)
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	private Date expectedDeliveryDate;
 
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm")
 	private Date deliveryDate;
 
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
+	//@JsonFormat(shape=JsonFormat.Shape, pattern="yyyy-MM-dd HH:mm")
 	private Date warehouseReleaseDate;
 
+	//osoba odbierająca z magazynu
 	@Column
 	private String warehouseReleasePerson;
+	
+	//osoba wydająca
+	@Column(length=40)
+	private String realisingPerson;
 
 	@Column
 	private boolean isReleased;
@@ -99,6 +113,8 @@ public class Item implements Serializable {
 
 	@Column(length = 1024)
 	private String description;
+	
+
 
 	public Long getId() {
 		return id;
@@ -116,7 +132,7 @@ public class Item implements Serializable {
 		this.version = version;
 	}
 
-	@XmlTransient
+	//@XmlTransient
 	public Order getOrder() {
 		return order;
 	}
@@ -125,12 +141,20 @@ public class Item implements Serializable {
 		this.order = myOrder;
 	}
 
-	public String getIndex() {
-		return index;
+
+
+	/**
+	 * @return the itemIndex
+	 */
+	public String getItemIndex() {
+		return itemIndex;
 	}
 
-	public void setIndex(String index) {
-		this.index = index;
+	/**
+	 * @param itemIndex the itemIndex to set
+	 */
+	public void setItemIndex(String itemIndex) {
+		this.itemIndex = itemIndex;
 	}
 
 	public String getName() {
@@ -237,6 +261,20 @@ public class Item implements Serializable {
 		this.isReleased = isReleased;
 	}
 	
+	/**
+	 * @return the realisingPerson
+	 */
+	public String getRealisingPerson() {
+		return realisingPerson;
+	}
+
+	/**
+	 * @param realisingPerson the realisingPerson to set
+	 */
+	public void setRealisingPerson(String realisingPerson) {
+		this.realisingPerson = realisingPerson;
+	}
+
 	public int getPositionInOrder() {
 		return positionInOrder;
 	}
@@ -260,16 +298,160 @@ public class Item implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	
+
+	/**
+	 * @return the receivingPerson
+	 */
+	public String getReceivingPerson() {
+		return receivingPerson;
+	}
+
+	/**
+	 * @param receivingPerson the receivingPerson to set
+	 */
+	public void setReceivingPerson(String receivingPerson) {
+		this.receivingPerson = receivingPerson;
+	}
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", version=" + version + ", order=" + order + ", index=" + index + ", name=" + name
+		return "Item [id=" + id + ", version=" + version + ", order=" + order + ", index=" + itemIndex + ", name=" + name
 				+ ", mpk=" + mpk + ", budget=" + budget + ", isDispatched=" + isDispatched + ", amount=" + amount
 				+ ", unit=" + unit + ", price=" + price + ", currency=" + currency + ", expectedDeliveryDate="
 				+ expectedDeliveryDate + ", deliveryDate=" + deliveryDate + ", warehouseReleaseDate="
 				+ warehouseReleaseDate + ", warehouseReleasePerson=" + warehouseReleasePerson + ", isReleased="
 				+ isReleased + ", positionInOrder=" + positionInOrder + ", partialDeliveryGoodsAmount="
 				+ partialDeliveryGoodsAmount + ", description=" + description + "]";
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(amount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((budget == null) ? 0 : budget.hashCode());
+		result = prime * result + ((currency == null) ? 0 : currency.hashCode());
+		result = prime * result + ((deliveryDate == null) ? 0 : deliveryDate.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((expectedDeliveryDate == null) ? 0 : expectedDeliveryDate.hashCode());
+		result = prime * result + ((itemIndex == null) ? 0 : itemIndex.hashCode());
+		result = prime * result + (isDispatched ? 1231 : 1237);
+		result = prime * result + (isReleased ? 1231 : 1237);
+		result = prime * result + ((mpk == null) ? 0 : mpk.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((order == null) ? 0 : order.hashCode());
+		temp = Double.doubleToLongBits(partialDeliveryGoodsAmount);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + positionInOrder;
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
+		result = prime * result + ((receivingPerson == null) ? 0 : receivingPerson.hashCode());
+		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
+		result = prime * result + ((warehouseReleaseDate == null) ? 0 : warehouseReleaseDate.hashCode());
+		result = prime * result + ((warehouseReleasePerson == null) ? 0 : warehouseReleasePerson.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Item other = (Item) obj;
+		if (Double.doubleToLongBits(amount) != Double.doubleToLongBits(other.amount))
+			return false;
+		if (budget == null) {
+			if (other.budget != null)
+				return false;
+		} else if (!budget.equals(other.budget))
+			return false;
+		if (currency == null) {
+			if (other.currency != null)
+				return false;
+		} else if (!currency.equals(other.currency))
+			return false;
+		if (deliveryDate == null) {
+			if (other.deliveryDate != null)
+				return false;
+		} else if (!deliveryDate.equals(other.deliveryDate))
+			return false;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (expectedDeliveryDate == null) {
+			if (other.expectedDeliveryDate != null)
+				return false;
+		} else if (!expectedDeliveryDate.equals(other.expectedDeliveryDate))
+			return false;
+		if (itemIndex == null) {
+			if (other.itemIndex != null)
+				return false;
+		} else if (!itemIndex.equals(other.itemIndex))
+			return false;
+		if (isDispatched != other.isDispatched)
+			return false;
+		if (isReleased != other.isReleased)
+			return false;
+		if (mpk == null) {
+			if (other.mpk != null)
+				return false;
+		} else if (!mpk.equals(other.mpk))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (order == null) {
+			if (other.order != null)
+				return false;
+		} else if (!order.equals(other.order))
+			return false;
+		if (Double.doubleToLongBits(partialDeliveryGoodsAmount) != Double
+				.doubleToLongBits(other.partialDeliveryGoodsAmount))
+			return false;
+		if (positionInOrder != other.positionInOrder)
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
+			return false;
+		if (receivingPerson == null) {
+			if (other.receivingPerson != null)
+				return false;
+		} else if (!receivingPerson.equals(other.receivingPerson))
+			return false;
+		if (unit == null) {
+			if (other.unit != null)
+				return false;
+		} else if (!unit.equals(other.unit))
+			return false;
+		if (warehouseReleaseDate == null) {
+			if (other.warehouseReleaseDate != null)
+				return false;
+		} else if (!warehouseReleaseDate.equals(other.warehouseReleaseDate))
+			return false;
+		if (warehouseReleasePerson == null) {
+			if (other.warehouseReleasePerson != null)
+				return false;
+		} else if (!warehouseReleasePerson.equals(other.warehouseReleasePerson))
+			return false;
+		return true;
 	}
 
 }
