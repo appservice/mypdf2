@@ -1,10 +1,15 @@
 package eu.luckyapp.mypdf.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.logging.Logger;
 
+import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -15,6 +20,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -30,6 +36,9 @@ public class OrderDAO extends AbstractDAO<Order> {
 
 	@Inject
 	EntityManager em;
+	
+	@Resource
+	SessionContext context;
 
 	public OrderDAO() {
 		super(Order.class);
@@ -65,7 +74,7 @@ public class OrderDAO extends AbstractDAO<Order> {
 	 */
 	public List<Order> findByNumber(String orderNumber, String supplier, String purchaser, String factory,String suppliesGroup,Date orderDateFrom,Date orderDateTo,
 			String orderReference, String itemName, String itemIndex, String itemDescription,Date warehouseReleaseDateFrom,
-			Date warehouseReleaseDateTo,String warehouseReleasePerson,String mpk, int startPosition,	int maxResult) {
+			Date warehouseReleaseDateTo,String warehouseReleasePerson,String mpk,Integer overdueTime, int startPosition,	int maxResult) {
 		// orderNumber.replaceAll("*","%");
 		Log.info(orderNumber);
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -98,6 +107,12 @@ public class OrderDAO extends AbstractDAO<Order> {
 		if (suppliesGroup != null && !suppliesGroup.isEmpty()) {
 			Predicate pBySuppliesGroup = cb.and(cb.like(cb.upper(orderEntity.get(Order_.suppliesGroup)), suppliesGroup.toUpperCase()));
 			predList.add(pBySuppliesGroup);
+		}
+		
+		
+		if (context.isCallerInRole("DYMEK")) {
+			Predicate p = cb.and(cb.like(cb.upper(orderEntity.get(Order_.suppliesGroup)), "GZH"));
+			predList.add(p);
 		}
 		
 		if (orderReference != null && !orderReference.isEmpty()) {
@@ -163,6 +178,27 @@ public class OrderDAO extends AbstractDAO<Order> {
 		predList.add(p);
 	}
 
+
+	if(overdueTime!=null){
+		//Path<Date> deliveryDate=items.get(Item_.deliveryDate);
+		
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTimeZone(TimeZone.getTimeZone("UTC+1"));//Munich time 
+		calendar.setTime(new Date());
+		calendar.add(Calendar.DATE, -overdueTime);//substract the number of days to look back 		
+		Date dateToLookBackAfter = calendar.getTime();
+		
+		Path<Date> expectedDeliveryDate=items.get(Item_.expectedDeliveryDate);
+		//Expression<java.sql.Date>nowDate=cb.currentDate();
+		
+		Predicate p=cb.and(cb.isTrue(items.get(Item_.isDispatched)));
+		Predicate p2=cb.and(cb.greaterThanOrEqualTo(expectedDeliveryDate, dateToLookBackAfter));
+		
+		predList.add(p);
+		predList.add(p2);
+	}
+	
+	
 		cq.where(predList.toArray(new Predicate[predList.size()]));
 		cq.orderBy(cb.desc(orderEntity.get(Order_.number)));
 		cq.distinct(true);

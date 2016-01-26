@@ -116,23 +116,23 @@
 </div>
 
 <div style="text-align: center;">
-	<button style="text-align: center;margin: 0 auto;"class="btn" data-ng-click="showPreviousSite()" data-ng-show="showButton()" ><i class="glyphicon glyphicon-chevron-left"></i>Poprzednia strona</button>
-	<button style="text-align: center;margin: 0 auto;"class="btn" data-ng-click="showNextSite() " data-ng-show="showButton()">Nastepna strona<i class="glyphicon glyphicon-chevron-right"></i></button>
+	<button style="text-align: center;margin: 0 auto;"class="btn" data-ng-click="showPreviousSite()" data-ng-show="showButton" ><i class="glyphicon glyphicon-chevron-left"></i>Poprzednia strona</button>
+	strona: {{startPosition/10+1}}
+	<button style="text-align: center;margin: 0 auto;"class="btn" data-ng-click="showNextSite() " data-ng-show="showButton">Nastepna strona<i class="glyphicon glyphicon-chevron-right"></i></button>
 
 </div>
 
+<div data-ng-init="startPosition=0" >
 	<div layout="column" style="height: 500px;" data-ng-keypress="($event.which === 13)?findOrder(orderCriteria):0">
 		<section layout="row" flex>
 
 
-			<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right"> <md-toolbar
-				class="md-theme-light">
-		<!--	<h1 class="md-toolbar-tools">Filter</h1>-->
-						<md-button  data-ng-click="findOrder(orderCriteria)">
-						 szukaj</md-button> <!--  input type="file" accept="image/*;capture=camera" -->
+			<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right"> 
+			<md-toolbar	class="md-theme-light">
+					<md-button data-ng-click="findOrder(orderCriteria)"> szukaj</md-button> 
 			
 			</md-toolbar> 
-			<md-content  layout-padding><!-- data-ng-controller="RightCtrl" -->
+			<md-content  layout-padding>
 			<form>
 				<md-input-container> 
 				<label for="testInput">Nr zamówienia</label> 
@@ -174,7 +174,7 @@
 				
 				<md-input-container> 
 				<label for="test">Przyjęte przez</label> 
-				<input type="date" data-ng-model="orderCriteria.peprson" />
+				<input type="text" data-ng-model="orderCriteria.peprson" />
 				</md-input-container>
 			
 
@@ -226,7 +226,7 @@
 		</section>
 	</div>
 
-
+</div>
 
 
 

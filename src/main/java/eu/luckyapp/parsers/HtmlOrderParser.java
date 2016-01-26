@@ -200,6 +200,7 @@ public class HtmlOrderParser implements OrderParser {
 		
 		parse(html);
 		
+
 	    Order order=new Order();
 		
 	    order.setNumber(this.orderHeaderDatas[0]);
@@ -210,6 +211,7 @@ public class HtmlOrderParser implements OrderParser {
 			throw new ParserException("Date of order parse exception!",e);
 		}
 		
+	   // System.out.println("dostawca: "+this.orderHeaderDatas[2]);
 	    order.setSupplier(this.orderHeaderDatas[2]);
 		order.setSuppliesGroup(this.orderHeaderDatas[3]);
 		order.setPurchaser(this.orderHeaderDatas[4]);

@@ -17,12 +17,12 @@ public class HtmlOrderParserTest {
 
 	@Before
 	public void setUp() throws Exception {
-		System.out.println(this.getClass().getClassLoader().getResource("")
-				.getPath());
+		System.out.println(this.getClass().getClassLoader().getResource("").getPath());
 
 		parser = new HtmlOrderParser();
 
-		Path file = Paths.get("d:///4500450384.htm");//4500413761.htm");//4500413690.htm");//4500413761.htm  4500413690.htm
+		Path file = Paths.get("d:///4500450384.htm");// 4500413761.htm");//4500413690.htm");//4500413761.htm
+														// 4500413690.htm
 		text = new String(Files.readAllBytes(file));
 
 	}
@@ -36,38 +36,35 @@ public class HtmlOrderParserTest {
 	public void testParse() {
 		try {
 			parser.parse(text);
-			//System.out.println(parser.toString());
+			// System.out.println(parser.toString());
 		} catch (ParserException e) {
 			System.out.println("parser eroor");
 			e.printStackTrace();
 		}
 
-
-
 	}
-	
+
 	@Ignore
 	@Test
-	public void testParseToTableView() throws ParserException{
-	//	try {
-			System.out.println(text);
-			
-			Order o=parser.parseToOrder(text);
-			System.out.println(o);
-		//	System.out.println(parser.parseToTableView(text).toString());
-			
-			//System.out.println(parser.toString());
-	//	} catch (ParserException e) {
-	//		System.out.println("parser error");
-	//		e.printStackTrace();
-	//	}
+	public void testParseToTableView() throws ParserException {
+		// try {
+		System.out.println(text);
+
+		Order o = parser.parseToOrder(text);
+		System.out.println(o);
+		// System.out.println(parser.parseToTableView(text).toString());
+
+		// System.out.println(parser.toString());
+		// } catch (ParserException e) {
+		// System.out.println("parser error");
+		// e.printStackTrace();
+		// }
 	}
 
-	
 	@Test
-	public void testParseToOrder()throws ParserException{
-		Order o=parser.parseToOrder(text);
-		System.out.println("to jest to "+o);
+	public void testParseToOrder() throws ParserException {
+		Order o = parser.parseToOrder(text);
+		System.out.println("to jest to " + o);
 	}
-	
+
 }

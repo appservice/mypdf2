@@ -50,6 +50,11 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.palantir.typescript.typeScriptBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
@@ -64,5 +69,6 @@
 		<nature>org.eclipse.fx.ide.css.nature</nature>
 		<nature>org.jboss.tools.jst.web.kb.kbnature</nature>
 		<nature>org.jboss.tools.jsf.jsfnature</nature>
+		<nature>com.palantir.typescript.typeScriptNature</nature>
 	</natures>
 </projectDescription>

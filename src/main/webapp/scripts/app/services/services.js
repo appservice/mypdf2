@@ -1,7 +1,7 @@
 /**
  * 
  */
-angular.module('myApp.services',[]);
+angular.module('myApp.services',[]);//'RestFulResponse'
 
 /*services.factory('TableViewsFactory', function ($resource) {
     return $resource('/mypdf/resources/tableviews', {}, {

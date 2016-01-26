@@ -1,9 +1,8 @@
 /**
  * 
  */
-angular.module('myApp.controllers').controller('TableViewsListCtrl', TableViewsListCtrl);
-
-function TableViewsListCtrl($scope,  /*TableViewsFactory,TableViewFactory, UploadFileFactory,*/  $location,Restangular,RestFulResponse,$mdDialog) {
+angular.module('myApp.controllers').controller('TableViewsListCtrl',['$scope',  '$location','Restangular','RestFulResponse','$mdDialog',
+function ($scope,  $location,Restangular,RestFulResponse,$mdDialog) {
 
 	$scope.editTableView = function(tableView) {
 
@@ -307,4 +306,4 @@ console.log(response);
 		});
 	};
 
-};
+}]);

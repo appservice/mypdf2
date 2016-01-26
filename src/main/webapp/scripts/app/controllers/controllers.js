@@ -1,4 +1,4 @@
 /**
  * 
  */
-angular.module('myApp.controllers', []);
+angular.module('myApp.controllers', []);//'ordersTableController','table2Controller'

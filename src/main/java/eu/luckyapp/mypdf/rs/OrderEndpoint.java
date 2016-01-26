@@ -56,6 +56,7 @@ public class OrderEndpoint {
 			@QueryParam("warehouseReleaseDateTo") long warehouseReleaseDateToLong,
 			@QueryParam("warehouseReleasePerson") String warehouseReleasePerson,
 			@QueryParam("mpk") String mpk,
+			@QueryParam("overdueTime") Integer overdueTime,
 			
 			
 			@QueryParam("startPosition") int startPosition,
@@ -100,7 +101,7 @@ public class OrderEndpoint {
 		
 
 		List<Order> orders = orderDAO.findByNumber(orderNumber, supplier, purchaser, factory, suppliesGroup,
-				orderDateFrom, orderDateTo, orderReference, itemName, itemIndex, itemDescription,warehouseReleaseDateFrom,warehouseReleaseDateTo,warehouseReleasePerson,mpk,
+				orderDateFrom, orderDateTo, orderReference, itemName, itemIndex, itemDescription,warehouseReleaseDateFrom,warehouseReleaseDateTo,warehouseReleasePerson,mpk,overdueTime,
 				startPosition,	maxResult);
 		// Log.info(orders.get(1).toString());
 		return Response.accepted(orders).build();

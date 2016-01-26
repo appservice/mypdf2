@@ -1,16 +1,18 @@
 /**
  * 
  */
-angular.module('myApp.controllers').controller('OrdersTableCtrl', OrdersTableCtrl);
-function OrdersTableCtrl($scope, $timeout, $mdSidenav, $log, $mdDialog, $mdToast, Restangular, RestFulResponse, $rootScope) {
+angular.module('myApp.controllers').controller('OrdersTableCtrl'
+		,['$scope', '$timeout', '$mdSidenav', '$log', '$mdDialog', '$mdToast', 'Restangular', 'RestFulResponse', '$rootScope', 
+function ($scope, $timeout, $mdSidenav, $log, $mdDialog, $mdToast, Restangular, RestFulResponse, $rootScope) {
 	// $scope.toggleLeft = buildDelayedToggler('left');
 	$scope.toggleRight = buildToggler('right');
 	$scope.orderList = [];
 //	$scope.orderDateFrom=null;
 	$scope.startPosition=0;
 	$scope.orderCriteria={};
+	$scope.showButton=false;
 
-	$scope.showButton=function(){
+/*	$scope.showButton=function(){
 		console.log($scope.orderList.length);
 		if($scope.orderList.length>0){
 			return true;
@@ -18,7 +20,7 @@ function OrdersTableCtrl($scope, $timeout, $mdSidenav, $log, $mdDialog, $mdToast
 		
 		else
 		return false;
-	}
+	}*/
 	
 	$scope.isOpenRight = function() {
 		return $mdSidenav('right').isOpen();
@@ -61,6 +63,7 @@ function OrdersTableCtrl($scope, $timeout, $mdSidenav, $log, $mdDialog, $mdToast
 			if (data instanceof Array) {
 				$scope.orderList = [];
 				$scope.orderList = data;
+				$scope.showButton=true;
 				console.log($scope.order);
 			} else {
 
@@ -208,4 +211,4 @@ function OrdersTableCtrl($scope, $timeout, $mdSidenav, $log, $mdDialog, $mdToast
 		});
 	};
 
-}
+}]);

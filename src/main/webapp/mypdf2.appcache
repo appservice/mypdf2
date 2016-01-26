@@ -1,0 +1,34 @@
+CACHE MANIFEST
+# v2 2016-01-12
+# This is a comment.
+#index.html
+/mypdf2/styles/app.css
+/mypdf2/scripts/library/bootstrap-3.3.5/css/bootstrap.min.css
+/mypdf2/scripts/library/angular_material/angular-material.min.css
+/mypdf2/scripts/library/jquery-2.1.4.min.js
+/mypdf2/scripts/library/bootstrap-3.3.5/js/bootstrap.min.js
+/mypdf2/scripts/library/angular-1.4.7/angular.min.js
+/mypdf2/scripts/library/angular-1.4.7/angular-animate.min.js
+/mypdf2/scripts/library/angular-1.4.7/angular-aria.min.js
+/mypdf2/scripts/library/angular-1.4.7/angular-route.min.js
+/mypdf2/scripts/library/angular-1.4.7/i18n/angular-locale_pl-pl.js
+/mypdf2/scripts/library/lodash.min.js
+/mypdf2/scripts/library/restangular/restangular.min.js
+/mypdf2/scripts/library/angular_material/angular-material.min.js
+/mypdf2/scripts/app/myApp.js
+/mypdf2/scripts/app/controllers/controllers.js
+/mypdf2/scripts/app/controllers/ordersTableController.js
+/mypdf2/scripts/app/controllers/table2Controller.js
+/mypdf2/scripts/app/services/services.js
+/mypdf2/scripts/app/services/RestFullResponseService.js
+/mypdf2/templates/footer.html
+/mypdf2/views/ordersTable.html
+/mypdf2/scripts/library/bootstrap-3.3.5/fonts/glyphicons-halflings-regular.woff2
+/mypdf2/templates/header.html
+/favicon.ico
+
+NETWORK:
+/mypdf2/index.html
+/mypdf2/resources/users/logged
+/mypdf2/resources/users/logout
+/mypdf2/resources/orders

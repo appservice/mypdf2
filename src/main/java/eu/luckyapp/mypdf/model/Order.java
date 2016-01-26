@@ -167,7 +167,7 @@ public class Order implements Serializable {
 		return supplier;
 	}
 
-	public void setSupplier(String lier) {
+	public void setSupplier(String supplier) {
 		this.supplier = supplier;
 	}
 

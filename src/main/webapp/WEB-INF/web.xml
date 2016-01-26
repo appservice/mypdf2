@@ -34,6 +34,7 @@
   </web-resource-collection>
   <auth-constraint>
    <role-name>ADMIN</role-name>
+   <role-name>DYMEK</role-name>
   </auth-constraint>
  </security-constraint>
  <security-constraint>
@@ -60,5 +61,9 @@
  <security-role>
   <description>ROLE WITHOUT RIGHT TO CHANGE ANYTHING -ONLY FOR MONITORING</description>
   <role-name>MONITOR</role-name>
+ </security-role>
+ <security-role>
+  <description>it show only supplies group GZH</description>
+  <role-name>DYMEK</role-name>
  </security-role>
 </web-app>
