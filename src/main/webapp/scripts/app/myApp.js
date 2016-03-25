@@ -3,53 +3,64 @@
 var app = angular.module('myApp', [ 'ngRoute', 'ngMaterial', 'restangular',/* 'myApp.directives', */'myApp.controllers', 'myApp.services' ]);
 
 app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-	// $routeProvider.when('/main-table2', {templateUrl:
-	// 'views/main-table2.html', controller: 'TableViewsListCtrl'});
-	// $routeProvider.when('/main-table', {templateUrl: 'views/main-table.html',
-	// controller: 'TableViewsListCtrl'});
+
 	$routeProvider.when('/orders-table', {
 		templateUrl : 'views/ordersTable.html',
 		controller : 'OrdersTableCtrl'
 	});
 	$routeProvider.when('/add-order', {
-		templateUrl : 'templates/header.html',
+		templateUrl : 'views/add_order.html',
 		controller : 'TableViewsListCtrl'
 	});
-	// $routeProvider.when('/', {templateUrl: 'index.html', controller:
-	// 'OrdersTableCtrl'});
+
+	$routeProvider.when('/home',{
+		templateUrl:'views/home.html'
+	//	resolve:'currentUser'
+	});
+
+	$routeProvider.when('/pick-up',{
+		templateUrl:'views/pickupParts.html',
+		controller : 'PickupPartsController'
+
+	});
 	$routeProvider.otherwise({
-		redirectTo : '/orders-table'
+		redirectTo : '/home'
+
 	});
 
 	/* $locationProvider.html5Mode(true); */
 } ]);
 
+
+var pathDomain= window.location.pathname.split( '/' )[1];
+
+
 app.config(function(RestangularProvider) {
-	RestangularProvider.setBaseUrl('/mypdf2/resources/');
+	RestangularProvider.setBaseUrl('/'+pathDomain+'/resources/');
 });
 
 app.run(function($rootScope, $location, Restangular, $window) {
-
 	console.log($location.absUrl());
-
 	Restangular.one('/users/logged', "").get().then(function(currentUser) {
-
 		$rootScope.currentUser = currentUser.plain();
 		console.log($rootScope.currentUser);
 
-		$rootScope.logout = function() {
-
-			Restangular.one("users/logout").customGET("");
-			// $location.path("/main-table");
-			// $location.replace("/mypdf");
-			$window.location.replace("/mypdf2");
-
-		};
 
 	});
+
+	$rootScope.logout = function() {
+		Restangular.one("users/logout").customGET("");
+		$window.location.replace("/"+pathDomain);
+
+	};
 });
 
-// /angular.element(document).ready(function(){
-// angular.bootstrap(document,['myApp']);
-// /});
+app.filter('sqlfilter',function(){
+	return function(input) {
+        if (input) {
+            return input.replace(/\*/g, '%');    
+        }
+    } 
+});
+
 

@@ -62,6 +62,7 @@ public class HtmlOrderParserTest {
 	}
 
 	@Test
+	@Ignore
 	public void testParseToOrder() throws ParserException {
 		Order o = parser.parseToOrder(text);
 		System.out.println("to jest to " + o);

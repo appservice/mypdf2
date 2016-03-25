@@ -37,9 +37,7 @@ public class UploadFileBean {
 /*			ServletContext context=(ServletContext)FacesContext.getCurrentInstance().getExternalContext().getContext();
 			System.out.println("ścieżka: "+context.getRealPath("/"));*/
 			
-			try (InputStream is = file.getInputStream();
-					/*OutputStream os = new FileOutputStream(new File(
-							getFilename(file)));*/)
+			try (InputStream is = file.getInputStream())
 
 			{	
 				//writeToFile(is, os);

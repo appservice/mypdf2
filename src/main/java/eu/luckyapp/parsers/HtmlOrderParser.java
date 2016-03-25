@@ -8,8 +8,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.inject.Inject;
 
 import org.jsoup.Jsoup;
@@ -19,6 +17,7 @@ import org.jsoup.select.Elements;
 
 import eu.luckyapp.mypdf.model.Item;
 import eu.luckyapp.mypdf.model.Order;
+import org.slf4j.Logger;
 
 public class HtmlOrderParser implements OrderParser {
 	
@@ -30,11 +29,12 @@ public class HtmlOrderParser implements OrderParser {
 	private static final String END_TABLE_TAG = "Netto";
 	private String[] orderHeaderDatas;
 	private String[] orderItemDatas;
-	private List<String[]>itemsDataList=new ArrayList<>();
+	private List<String[]>itemsDataList;
 
 
 	public void parse(String html) throws ParserException {
 		try {
+			itemsDataList=new ArrayList<>();
 			// ----------remove &nbsp; and double spaces
 			String clearHtml = html.replace("&nbsp;", " ").replace("  ", " ");
 
@@ -60,8 +60,8 @@ public class HtmlOrderParser implements OrderParser {
 					orderHeaderDatas = new String[6];
 				}
 
-				System.out.println(htmlTagNumber + " :" + itemTagNumber + " " +
-				 e.ownText());
+				//System.out.println(htmlTagNumber + " :" + itemTagNumber + " " +
+				 //e.ownText());
 
 				switch (htmlTagNumber) {
 				case 5:
@@ -118,7 +118,7 @@ public class HtmlOrderParser implements OrderParser {
 						itemTagNumber = 1;
 					}
 
-					System.out.println(itemTagNumber + " " + e.ownText());
+				//	System.out.println(itemTagNumber + " " + e.ownText());
 					switch (itemTagNumber) {
 					case 1:
 						orderItemDatas = new String[10];
@@ -140,7 +140,7 @@ public class HtmlOrderParser implements OrderParser {
 						break;
 					case 4:
 						String[] innerDataAmount = e.ownText().split(" ");
-						System.out.println("case 5 " + e.ownText());
+					//	System.out.println("case 5 " + e.ownText());
 						orderItemDatas[3] = innerDataAmount[0];// amount
 						orderItemDatas[4] = innerDataAmount[1]; // unit
 						break;
@@ -158,7 +158,7 @@ public class HtmlOrderParser implements OrderParser {
 
 						break;
 					case 15:
-						System.out.println(e.ownText());
+					//	System.out.println(e.ownText());
 						orderItemDatas[9] = e.ownText();
 
 						itemsDataList.add(orderItemDatas);		// list
@@ -176,13 +176,11 @@ public class HtmlOrderParser implements OrderParser {
 				// return parsedDataList;
 			}
 		} catch (Exception e) {
-			Log.log(Level.WARNING, "Date Parse error");
+			Log.error("Date Parse error "+e.getMessage());
 			throw new ParserException("ParserException ", e);
 
 		}
 
-		//Log.log(Level.WARNING, itemsDataList.toString());
-	//	return parsedDataList;
 
 	}
 
@@ -247,7 +245,7 @@ public class HtmlOrderParser implements OrderParser {
 		}
 	//	Log.warning(items.toString());
 	     order.setItems(items);
-	 //    Log.warning(order.toString());
+	   Log.debug(order.toString());
 
 		return order;
 	}

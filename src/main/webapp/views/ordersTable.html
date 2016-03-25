@@ -1,237 +1,314 @@
-
-<html >
+<html>
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
 </head>
-<body layout="column" >
-	
-	<!-- TOOLBAR -->
+<body layout="column">
 
-		<button class="md-raised md-primary form-control"  data-ng-click="toggleRight()">Wprowadź kryterium wyszukiwania</button>
-		<span flex></span>
-
-	<div>
-		<br />
-	</div>
+<!-- TOOLBAR -->
+<div class="container">
+    <div class="page-header center">
+        <h3>Wyszukaj zamówienie</h3>
+    </div>
+</div>
+<button class="md-raised md-primary form-control" data-ng-click="toggleRight()">Wprowadź kryterium wyszukiwania</button>
+<span flex></span>
+<div>
+    <br/>
+</div>
 
 <div data-ng-repeat="order in orderList" style="margin-bottom: 40pt;">
-	<table id="table1" >
-		<!-- 	<thead> -->
-		<tr style="font-size: smaller;">
-			
-				<td>Lp.</td>
-			<td>Numer:</td>
-			<td>Zamawiający:</td>
-			<td>Dostawca:</td>
-			<td>Data:</td>		
-			<td>Dział zaop.:</td>
-			<td>Grupa zaop.:</td>
-			<td>Ref:</td>
-			<td></td>
-	
-		<tr>
-		<td>{{$index+1+startPosition}}</td>
-			<td>{{order.number}}</td>
-			<td>{{order.purchaser}}</td>
-			<td>{{order.supplier}}</td>
-			<td>{{order.date}}</td>
-			<td>{{order.factory}}</td>
-			<td>{{order.suppliesGroup}}</td>
-			<td style="width: 35%">{{order.orderReference}}</td>
-			<td style="direction: rtl;">
-			<!--  <span flex></span><md-button class="md-raised md-primary" >zapisz</md-button>-->
-			</td>
-		</tr>
-		<tr>
-			<td colspan="8">
-	<table class="CSSTableGenerator">
-					<tr>
-						<td>lp</td>
-						<td>index</td>
-						<td>nazwa</td>
-						<td style="width:12px;">ilość</td>
-						<td>jm</td>
-						<td>cena</td>
-					<!-- 	<td>waluta</td> -->
-						<td style="width:20px; ">Plan. data dost</td>
-						<td >MPK</td>
-						<td style="width:8px;">Dostar.</td>
-						
+    <table id="table1">
+        <!-- 	<thead> -->
+        <tr style="font-size: smaller;">
 
-						<td>Data pz</td>
-						<td>Pzyjął</td>
-						<td>Odbierający</td>
-						<td>Data wyd.</td>
-							<td>Wydał</td>
-						<td>Uwagi</td>
+            <td>Lp.</td>
+            <td>Numer:</td>
+            <td>Zamawiający:</td>
+            <td>Dostawca:</td>
+            <td>Data:</td>
+            <td>Dział zaop.:</td>
+            <td>Grupa zaop.:</td>
+            <td>Ref:</td>
+            <td></td>
+        <tr>
+            <td>{{$index+1+startPosition}}</td>
+            <td>{{order.number}}</td>
+            <td>{{order.purchaser}}</td>
+            <td>{{order.supplier}}</td>
+            <td>{{order.date}}</td>
+            <td>{{order.factory}}</td>
+            <td>{{order.suppliesGroup}}</td>
+            <td style="width: 35%">{{order.orderReference}}</td>
+            <td style="direction: rtl;">
+                <!--  <span flex></span><md-button class="md-raised md-primary" >zapisz</md-button>-->
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8">
+                <table class="CSSTableGenerator" ><!--CSSTableGenerator-->
+                    <tr>
+                        <td data-ng-click="orderDirections('positionInOrder',$index)"> lp
+                            <span class="sortorder" data-ng-show="predicate === 'positionInOrder{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td data-ng-click="orderDirections('itemIndex',$index)"> index
+                            <span class="sortorder" data-ng-show="predicate === 'itemIndex{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td>
+                            <div data-ng-click="orderDirections('name',$index)"> nazwa
+                                <span class="sortorder" data-ng-show="predicate === 'name{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                            </div>
+                            <div style="color: black">
+                                <input type="text" placeholder="Filtruj" data-ng-model="myFilter.name" data-ng-model-options="{ debounce: 500 }" style="width:90%;opacity: 0.8;"/></div>
+                        </td>
+                        <td style="width: 12px;" data-ng-click="orderDirections('amount',$index)"> ilość
+                            <span class="sortorder" data-ng-show="predicate === 'amount{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td>jm</td>
+                        <td data-ng-click="orderDirections('price',$index)" data-ng-show="!(currentUser.name==='kdymek' || currentUser.name==='cpfip')">
+                            cena
+                            <span class="sortorder" data-ng-show="predicate === 'price{{$index}}'"
+                                  data-ng-class="{reverse:reverse}"></span>
+                        </td>
 
-					</tr>
-					<!-- <tbody> -->
-					<tr data-ng-repeat="item in order.items">
-						<td>{{item.positionInOrder}}</td>
-						<td>{{item.itemIndex}}</td>
-						<td>{{item.name}}</td>
-						<td>{{item.amount}}</td>
-						<td style="width: 20px">{{item.unit}}</td>
-						<td style="width: 80px">{{item.price|currency:item.currency:2}}</td>
-					<!-- 	<td>{{item.currency}}</td> -->
-						<td>{{item.expectedDeliveryDate}}</td>
-						<td>{{item.mpk}}</td>
-						<td style="text-align: center;margin-left: auto;margin-right: auto;">
-							<md-checkbox ng-model="item.dispatched" aria-label="..." data-ng-click="itemUpdate(order.id,item)"/><!--  data-ng-click="orderReceiving(order)" -->
-						</td>
-						<td style="width: 80px">{{item.deliveryDate|date:'dd-MM-yyyy HH:mm'}}</td>
-						<td>
-						{{item.receivingPerson}}
-						</td>
-<td>
-							<input type="text" data-ng-model="item.warehouseReleasePerson" value=" {{item.warehouseReleasePerson}}" 
-							data-ng-blur="receivingPersonUpdate(item)" />
-						</td>
-						<td style="width: 80px">{{item.warehouseReleaseDate|date:'dd-MM-yyyy HH:mm'}}</td>
-						<td>{{item.realisingPerson}}</td>
-						
-						<td>
-							
-							<textarea rows="2" cols="30" style="height: 28pt" data-ng-model="item.description">{{item.description}}</textarea>
-						</td>
-						<!-- 	</tbody> -->
+                        <td style="width: 20px;" data-ng-click="orderDirections('expectedDeliveryDate',$index)">
+                            Plan. data dost
+                            <span class="sortorder" data-ng-show="predicate === 'expectedDeliveryDate{{$index}}'"
+                                  data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td data-ng-click="orderDirections('mpk',$index)"> MPK
+                            <span class="sortorder" data-ng-show="predicate === 'mpk{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
 
-					</tr>
-				</table>
-
-			</td>
-		</tr>
-		<!-- 	</tbody> -->
-	</table>
+                        <td data-ng-click="orderDirections('budget',$index)"> Zlec.
+                            <span class="sortorder" data-ng-show="predicate === 'budget{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td style="width: 8px;" data-ng-click="orderDirections('dispatched',$index)"> Dostar.
+                            <span class="sortorder" data-ng-show="predicate === 'dispatched{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
 
 
-<div style="direction: rtl; margin-right: 40px"><span flex></span>
-<md-button class="md-raised md-primary"  data-ng-click="saveOrder(order,$index,$event)">zapisz</md-button>
+                        <td data-ng-click="orderDirections('deliveryDate',$index)">
+                            Data PZ
+                            <span class="sortorder" data-ng-show="predicate === 'deliveryDate{{$index}}'" data-ng-class="{reverse:reverse}"></span>
 
-</div>
-<div id="save-button-{{$index}}" layout="row"><br/></div>
+                        </td>
+                        <td data-ng-click="orderDirections('receivingPerson',$index)">
+                            Przyjął
+                            <span class="sortorder" data-ng-show="predicate === 'receivingPerson{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td data-ng-click="orderDirections('warehouseReleasePerson',$index)"> Odbierający
+                            <span class="sortorder" data-ng-show="predicate === 'warehouseReleasePerson{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td data-ng-click="orderDirections('warehouseReleaseDate',$index)"> Data wyd.
+                            <span class="sortorder" data-ng-show="predicate === 'warehouseReleaseDate{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td data-ng-click="orderDirections('realisingPerson',$index)"> Wydał
+                            <span class="sortorder" data-ng-show="predicate === 'realisingPerson{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+                        <td data-ng-click="orderDirections('description',$index)"> Uwagi
+                            <span class="sortorder" data-ng-show="predicate === 'description{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </td>
+
+                    </tr>
+                    <!-- <tbody> -->
+                    <tr data-ng-repeat="item in order.items|filter:myFilter.name track by item.id">
+                        <td>{{item.positionInOrder}}</td>
+                        <td style="width: 125px">{{item.itemIndex}}</td>
+                        <td style="width: 400px">{{item.name}}</td>
+                        <td>{{item.amount}}</td>
+                        <td style="width: 20px">{{item.unit}}</td>
+                        <td style="width: 80px" data-ng-show="!(currentUser.name==='kdymek' || currentUser.name==='cpfip')">
+                            {{item.price|currency:item.currency:2}}
+                        </td>
+                        <!-- 	<td>{{item.currency}}</td> -->
+                        <td>{{item.expectedDeliveryDate}}</td>
+                        <td>{{item.mpk}}</td>
+                        <td>{{item.budget}}</td>
+                        <td style="text-align: center; margin-left: auto; margin-right: auto;">
+                            <md-checkbox ng-model="item.dispatched" aria-label="..."
+                                         data-ng-click="itemUpdate(order.id,item)"></md-checkbox>
+                            <!--  data-ng-click="orderReceiving(order)" -->
+                        </td>
+                        <td style="width: 80px">{{item.deliveryDate|date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{item.receivingPerson}}</td>
+                        <td>
+                            <label>
+                                <input type="text" data-ng-model="item.warehouseReleasePerson"
+                                       value=" {{item.warehouseReleasePerson}}"
+                                       data-ng-blur="receivingPersonUpdate(item)"/>
+                            </label>
+                        </td>
+                        <td style="width: 80px">{{item.warehouseReleaseDate|date:'dd-MM-yyyy HH:mm'}}</td>
+                        <td>{{item.realisingPerson}}</td>
+
+                        <td>
+
+                            <label>
+                                <textarea rows="2" cols="30" style="height: 28pt" data-ng-model="item.description">{{item.description}}</textarea>
+                            </label>
+                        </td>
+                        <!-- 	</tbody> -->
+
+                    </tr>
+                </table>
+
+            </td>
+        </tr>
+        <!-- 	</tbody> -->
+    </table>
+
+    <div>
+        <table style="width: 100%;">
+            <tr>
+                <td style="padding-left: 30px">
+                    <md-button class="md-raised " data-ng-click="deleteOrder(order,$event)">Usuń</md-button>
+                </td>
+                <td style="direction:rtl;padding-right:30px">
+                    <md-button class="md-raised md-primary" data-ng-click="saveOrder(order,$index,$event)">Zapisz</md-button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div id="save-button-{{$index}}" layout="row">
+        <br/>
+    </div>
 
 </div>
 
 <div style="text-align: center;">
-	<button style="text-align: center;margin: 0 auto;"class="btn" data-ng-click="showPreviousSite()" data-ng-show="showButton" ><i class="glyphicon glyphicon-chevron-left"></i>Poprzednia strona</button>
-	strona: {{startPosition/10+1}}
-	<button style="text-align: center;margin: 0 auto;"class="btn" data-ng-click="showNextSite() " data-ng-show="showButton">Nastepna strona<i class="glyphicon glyphicon-chevron-right"></i></button>
+    <button style="text-align: center; margin: 0 auto;" class="btn" data-ng-click="showPreviousSite()" data-ng-show="showButton">
+        <i class="glyphicon glyphicon-chevron-left"></i>Poprzednia strona
+    </button>
+    strona: {{startPosition/10+1}}
+    <button style="text-align: center; margin: 0 auto;" class="btn" data-ng-click="showNextSite() " data-ng-show="showButton">
+        Nastepna strona<i class="glyphicon glyphicon-chevron-right"></i>
+    </button>
 
 </div>
 
-<div data-ng-init="startPosition=0" >
-	<div layout="column" style="height: 500px;" data-ng-keypress="($event.which === 13)?findOrder(orderCriteria):0">
-		<section layout="row" flex>
+<div data-ng-init="startPosition=0">
+    <div layout="column" data-ng-keypress="($event.which === 13)?findOrder(orderCriteria):0">
+        <section layout="row" flex>
 
 
-			<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right"> 
-			<md-toolbar	class="md-theme-light">
-					<md-button data-ng-click="findOrder(orderCriteria)"> szukaj</md-button> 
-			
-			</md-toolbar> 
-			<md-content  layout-padding>
-			<form>
-				<md-input-container> 
-				<label for="testInput">Nr zamówienia</label> 
-				<input type="text"
-					id="testInput" data-ng-model="orderCriteria.orderNumber" data-md-autofocus> </md-input-container>
-		<md-input-container> 
-				<label for="test">Dostawca </label> 
-				<input type="text"  data-ng-model="orderCriteria.orderSupplier" />
-				</md-input-container>
-					<md-input-container> 
-				<label for="test">Zamawiający </label> 
-				<input type="text" data-ng-model="orderCriteria.orderPurchaser" />
-				</md-input-container>
-					<md-input-container> 
-				<label for="test">Fabryka </label> 
-				<input type="text" data-ng-model="orderCriteria.orderFactory" />
-				</md-input-container>
-				
-				<md-input-container> 
-				<label for="suppliesGroup">Grupa zaop. </label> 
-				<input type="text" data-ng-model="orderCriteria.suppliesGroup" />
-				</md-input-container>				
-			
-					<md-input-container> 
-				<label >Index części </label> 
-				<input type="text" data-ng-model="orderCriteria.itemIndex" />
-				</md-input-container>
-			
-				<md-input-container> 
-				<label for="test">Nazwa części </label> 
-				<input type="text" data-ng-model="orderCriteria.orderItemName" />
-				</md-input-container>
-				
-				<md-input-container> 
-				<label for="mpk">MPK </label> 
-				<input type="text" data-ng-model="orderCriteria.mpk" />
-				</md-input-container>
-				
-				
-				<md-input-container> 
-				<label for="test">Przyjęte przez</label> 
-				<input type="text" data-ng-model="orderCriteria.peprson" />
-				</md-input-container>
-			
+            <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+                <md-toolbar class="md-theme-light">
+                    <md-button data-ng-click="findOrder(orderCriteria)"> Szukaj</md-button>
+                </md-toolbar>
 
-				<md-input-container> 
-				<label for="warehouseReleasePerson">Wydane dla</label> 
-				<input type="text" data-ng-model="orderCriteria.warehouseReleasePerson" name="warehouseReleasePerson" />
-				</md-input-container>
-				
 
-				
-				<md-input-container> 
-				<label for="orderReference">Referencja</label> 
-				<input name="orderReference" id="orderReference" type="text" data-ng-model="orderCriteria.orderReference" />
-				</md-input-container>
-				
-				<md-input-container> 
-				<label for="itemDescription">Uwagi</label> 
-				<input name="itemDescription" id="itemDescription" type="text" data-ng-model="orderCriteria.itemDescription" />
-				</md-input-container>
-				
-							<!--  <fieldset class="standard md-padding"> -->
-			 
-				<!-- <legend style="font-size: small;"></legend> -->
-				
-				<div style="font-size: small;">Data zamówienia:			
-				 	<md-datepicker ng-model="orderCriteria.orderDateFrom" md-placeholder="od:"></md-datepicker>			
-					 <md-datepicker ng-model="orderCriteria.orderDateTo" md-placeholder= "do:"></md-datepicker>
-				</div>
-			
-			
-				<div style="font-size: small;">Data przyjęcia:			
-				 	<md-datepicker ng-model="orderCriteria.despatchDateFrom" md-placeholder="od:"></md-datepicker>			
-					 <md-datepicker ng-model="orderCriteria.despatchDateTo" md-placeholder= "do:"></md-datepicker>
-				</div>			
-		
-				<div style="font-size: small;">Data wydania:			
-				 	<md-datepicker ng-model="orderCriteria.warehouseReleaseDateFrom" md-placeholder="od:"></md-datepicker>			
-					 <md-datepicker ng-model="orderCriteria.warehouseReleaseDateTo" md-placeholder= "do:"></md-datepicker>
-				</div>	
-				
-				
-						
-			</form>
-			
-			<md-button data-ng-click="close()" class="md-primary"> Zamknij pasek boczny </md-button> 
-			 </md-content> 
-			
-			</md-sidenav>
-		</section>
-	</div>
+                <md-content layout-padding>
+                    <md-button data-ng-click="clearFilter(orderCriteria)">Wyczyść filtry</md-button>
+
+                    <form>
+                        <md-input-container><label for="testInput">Nr zamówienia</label>
+                            <input type="text" id="testInput" data-ng-model="orderCriteria.orderNumber"
+                                   data-md-autofocus>
+                        </md-input-container>
+
+                        <md-input-container><label for="orderReference">Referencja</label>
+                            <input name="orderReference" id="orderReference" type="text" data-ng-model="orderCriteria.orderReference"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label for="supplier">Dostawca </label>
+                            <input type="text" data-ng-model="orderCriteria.orderSupplier" id="supplier"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label for="purchaser">Zamawiający </label>
+                            <input type="text" data-ng-model="orderCriteria.orderPurchaser" id="purchaser"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label for="factory">Fabryka </label>
+                            <input type="text" data-ng-model="orderCriteria.orderFactory" id="factory"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label for="suppliesGroup">Grupa zaop. </label>
+                            <input type="text" data-ng-model="orderCriteria.suppliesGroup" id="suppliesGroup"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label for="itemIndex">Index części </label>
+                            <input type="text" data-ng-model="orderCriteria.itemIndex" id="itemIndex"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label for="orderItemName">Nazwa części </label>
+                            <input type="text" data-ng-model="orderCriteria.orderItemName" id="orderItemName"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label for="mpk">MPK </label>
+                            <input type="text" data-ng-model="orderCriteria.mpk" id="mpk"/>
+                        </md-input-container>
+
+                        <md-input-container>
+                            <label for="budget">Zlecenie </label>
+                            <input type="text" data-ng-model="orderCriteria.budget" id="budget"/>
+                        </md-input-container>
+
+
+                        <md-input-container>
+                            <label for="receivingPerson">Przyjęte przez</label>
+                            <input type="text" data-ng-model="orderCriteria.receivingPerson" id="receivingPerson"/>
+                        </md-input-container>
+
+
+                        <md-input-container>
+                            <label for="warehouseReleasePerson">Wydane dla</label>
+                            <input type="text" data-ng-model="orderCriteria.warehouseReleasePerson" name="warehouseReleasePerson" id="warehouseReleasePerson"/>
+                        </md-input-container>
+
+
+                        <md-input-container>
+                            <label for="itemDescription">Uwagi</label>
+                            <input name="itemDescription" id="itemDescription" type="text" data-ng-model="orderCriteria.itemDescription"/>
+                        </md-input-container>
+
+                        <!--  <fieldset class="standard md-padding"> -->
+
+                        <!-- <legend style="font-size: small;"></legend> -->
+
+                        <div style="font-size: small;">
+                            Data zamówienia:
+                            <md-datepicker ng-model="orderCriteria.orderDateFrom" md-placeholder="od:"></md-datepicker>
+                            <md-datepicker ng-model="orderCriteria.orderDateTo" md-placeholder="do:"></md-datepicker>
+                        </div>
+
+
+                        <div style="font-size: small;">
+                            Data przyjęcia:
+                            <md-datepicker ng-model="orderCriteria.despatchDateFrom"
+                                           md-placeholder="od:"></md-datepicker>
+                            <md-datepicker ng-model="orderCriteria.despatchDateTo" md-placeholder="do:"></md-datepicker>
+                        </div>
+
+                        <div style="font-size: small;">
+                            Data wydania:
+                            <md-datepicker ng-model="orderCriteria.warehouseReleaseDateFrom" md-placeholder="od:"></md-datepicker>
+                            <md-datepicker ng-model="orderCriteria.warehouseReleaseDateTo" md-placeholder="do:"></md-datepicker>
+                        </div>
+                        <div>
+                            <br/>
+                            <md-input-container>
+                                <label for="overdueDays">Przekroczony czas dostawy o dni</label>
+                                <input name="orderReference" id="overdueDays" type="number" data-ng-model="orderCriteria.overdueDays"/></md-input-container>
+                        </div>
+
+                    </form>
+
+                    <md-button data-ng-click="close()" class="md-primary"> Zamknij pasek boczny</md-button>
+                </md-content>
+            </md-sidenav>
+        </section>
+    </div>
 
 </div>
-
-
-
-
-	
 
 
 </body>

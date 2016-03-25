@@ -2,7 +2,6 @@ package eu.luckyapp.mypdf.rs;
 
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -21,6 +20,7 @@ import eu.luckyapp.mypdf.dao.OrderDAO;
 import eu.luckyapp.mypdf.model.Order;
 import eu.luckyapp.mypdf.model.TableView;
 import eu.luckyapp.mypdf.model.TableViewToOrderParser;
+import org.slf4j.Logger;
 
 @Path("/copy")
 @Stateless
@@ -31,7 +31,7 @@ public class CopyOldDataEndpoint {
 	
 	@Inject OrderDAO orderDAO;
 
-	List<TableView> tableList;
+	private List<TableView> tableList;
 
 	private static final String BASEURL = "http://10.11.1.2:8080/mypdf/resources/tableviews";
 

@@ -1,20 +1,15 @@
 package eu.luckyapp.mypdf.dao;
 
-import java.util.List;
-import java.util.logging.Logger;
-
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.validation.ConstraintViolationException;
+import java.util.List;
+
 
 public abstract class AbstractDAO<T> {
 	
-	@Inject
-	Logger Log;
 
 	private Class<T> entityClass;
 
@@ -44,6 +39,8 @@ public abstract class AbstractDAO<T> {
 	public void remove(T entity) {
 		getEntityManager().remove(getEntityManager().merge(entity));
 	}
+
+
 
 	public T find(Object id) {
 		return getEntityManager().find(entityClass, id);

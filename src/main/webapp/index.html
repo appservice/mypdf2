@@ -1,100 +1,101 @@
 <!DOCTYPE html>
-<html data-ng-app="myApp" data-ng-cloak="" manifest="mypdf2.appcache">
+<html data-ng-app="myApp" data-ng-cloak="">
+<!-- manifest="mypdf2.appcache" -->
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Baza zamówień</title>
-<!--  <link rel="stylesheet" type="text/css" href="styles/app.css" />
-<link rel="stylesheet" type="text/css" href="scripts/library/bootstrap-3.3.5/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="scripts/library/angular_material/angular-material.min.css" /> 
-<link rel="apple-touch-icon" sizes="57x57" href="images/favicons/apple-touch-icon-57x57.png">
-<link rel="apple-touch-icon" sizes="60x60" href="images/favicons/apple-touch-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="72x72" href="images/favicons/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="76x76" href="images/favicons/apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="114x114" href="images/favicons/apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="120x120" href="images/favicons/apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="144x144" href="images/favicons/apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="152x152" href="images/favicons/apple-touch-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="180x180" href="images/favicons/apple-touch-icon-180x180.png">
-<link rel="icon" type="image/png" href="images/favicons/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="images/favicons/android-chrome-192x192.png" sizes="192x192">
-<link rel="icon" type="image/png" href="images/favicons/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="images/favicons/favicon-16x16.png" sizes="16x16">
-<link rel="manifest" href="images/favicons/manifest.json">
-<link rel="mask-icon" href="images/favicons/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="msapplication-TileImage" content="images/favicons/mstile-144x144.png">
-<meta name="theme-color" content="#ffffff">-->
+    <title>Magazyn części</title>
+
+    <!--<link rel="icon" type="image/x-icon" href="favicon.ico" sizes="16x16">-->
+    <link rel="stylesheet" type="text/css" href="styles/app.css"/>
+    <link rel="stylesheet" type="text/css" href="scripts/library/bootstrap-3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="scripts/library/angular_material/angular-material.min.css"/>
+
 </head>
 
 <body class=“ng-cloak”>
-		<!-- ------------------header and menu----------------- -->
-		<!--  <div data-ng-include="" src="'templates/header.html'"></div>  -->
-		<!--  <div data-my-filter-inject ></div>  -->
-		<!-- ------------------content------------------------- -->
-		
-		 <!-- HEADER AND NAVBAR -->
-      <header>
-            <nav class="navbar navbar-default ">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Baza danych zamówień</a>
-                </div>
 
-                <ul class="nav navbar-nav navbar-right ">
-                    <li><a href="#orders-table"><i class="fa fa-home" data-ng-click="toggleRight()"></i> Wyszukaj zamówienie</a></li>
-                    <li><a href="#add-order"><i class="fa fa-shield"></i> Dodaj zamówienie</a></li>
-                  <!--    <li><a href="#"><i class="fa fa-comment"></i> Contact</a></li>-->
-                    <li><a href="#logout" data-ng-click="logout()" >Wyloguj: <strong data-ng-cloak>{{currentUser.name}}</strong></a>
-                </ul>
+<header>
+    <nav class="navbar navbar-default ">
+        <div class="container-fluid">
+
+            <div class="navbar-header">
+
+                <a class="navbar-brand navbar-left" href="#home"><i><img src="images/tools-24.png" width="24" height="24"/></i> Magazyn części</a>
             </div>
-            </nav>
-        </header>
-		
-		
-		<div data-ng-view="" class=“ng-cloak”></div> 
-	
-		<!-- ------------------footer----------------- -->
-	 	<div data-ng-include="" src="'templates/footer.html'"></div> 
-		<!-- -------------------loaded  scripts---------------------------- -->
+
+            <ul class="nav navbar-nav navbar-right ">
+                <li>
+                    <a href="#orders-table"><i class="fa fa-home" data-ng-click="toggleRight()"></i>Wyszukaj zamówienie
+                        <i class="glyphicon glyphicon-search"></i></a>
+                </li>
+                <li>
+                    <a href="#pick-up">
+                        Do odebrania
+                        <i class="glyphicon glyphicon-export"></i>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#add-order">
+                        <i class="fa fa-shield"></i> Dodaj zamówienie
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </a>
+                </li>
+                <!--    <li><a href="#"><i class="fa fa-comment"></i> Contact</a></li>-->
+                <li>
+                    <a href="#logout" data-ng-click="logout()">Wyloguj: <strong data-ng-cloak>{{currentUser.name}}</strong></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
+<div data-ng-view="" class="ng-cloak content"></div>
+
+<!-- ------------------footer----------------- -->
+<div data-ng-include="" src="'templates/footer.html'"/>
+<!-- -------------------loaded  scripts---------------------------- -->
 
 <!--   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="scripts/library/jquery-2.1.4.min.js"></script>
+<script src="scripts/library/jquery-2.1.4.min.js"></script>
 
 <!-- Angular Material Dependencies-->
 <script src="scripts/library/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 
 
-	<script src="scripts/library/angular-1.4.7/angular.min.js"></script>
-	<script src="scripts/library/angular-1.4.7/angular-animate.min.js"></script>
-	<script src="scripts/library/angular-1.4.7/angular-aria.min.js"></script>
-	<script src="scripts/library/angular-1.4.7/angular-route.min.js"></script>
+<script src="scripts/library/angular-1.4.7/angular.min.js"></script>
+<script src="scripts/library/angular-1.4.7/angular-animate.min.js"></script>
+<script src="scripts/library/angular-1.4.7/angular-aria.min.js"></script>
+<script src="scripts/library/angular-1.4.7/angular-route.min.js"></script>
 <!-- 	<script src="scripts/library/angular-1.4.7/angular-resource.min.js"></script> -->
-	<script src="scripts/library/angular-1.4.7/i18n/angular-locale_pl-pl.js"></script>
+<script src="scripts/library/angular-1.4.7/i18n/angular-locale_pl-pl.js"></script>
 
-	
-	<!-- Or use TAG number for specific version. New versions are auto deployed -->
 
-	<script src="scripts/library/lodash.min.js"></script>
-	
-	<script src="scripts/library/restangular/restangular.min.js"></script>
+<!-- Or use TAG number for specific version. New versions are auto deployed -->
+
+<script src="scripts/library/lodash.min.js"></script>
+
+<script src="scripts/library/restangular/restangular.min.js"></script>
 <!--  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/restangular/1.3.1/restangular.min.js"></script>-->
 
 
-	<!-- Angular Material Javascript now available via Google CDN; version 0.11.2 used here -->
-	<script src="scripts/library/angular_material/angular-material.min.js"></script>
+<!-- Angular Material Javascript now available via Google CDN; version 0.11.2 used here -->
+<script src="scripts/library/angular_material/angular-material.min.js"></script>
 
-	<script src="scripts/app/myApp.js"></script>
-	
-	<!--  controllers-->
-	<script src="scripts/app/controllers/controllers.js"></script>
-	<script src="scripts/app/controllers/ordersTableController.js"></script>
-		<script src="scripts/app/controllers/table2Controller.js"></script>
-	
-	<!--  services-->
-	<script  src="scripts/app/services/services.js"></script>
-	<script src="scripts/app/services/RestFullResponseService.js"></script>
+<script src="scripts/app/myApp.js"></script>
 
+<!--  controllers-->
+<script src="scripts/app/controllers/controllers.js"></script>
+<script src="scripts/app/controllers/ordersTableController.js"></script>
+<script src="scripts/app/controllers/table2Controller.js"></script>
+<script src="scripts/app/controllers/pickupParts.js"></script>
+
+<!--  services-->
+<script src="scripts/app/services/services.js"></script>
+<script src="scripts/app/services/RestFullResponseService.js"></script>
+</body>
 </html>

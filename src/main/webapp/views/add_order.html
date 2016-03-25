@@ -1,0 +1,51 @@
+<!-- ------------------filter menu ----------------- -->
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+<div class="container ">
+
+    <!-- toggle when the width smaller than ....  -->
+
+    <div class="page-header center">
+        <h3>Dodaj zamówienie do bazy</h3>
+    </div>
+
+
+    <!--  <div id="filter-group">  -->
+    <form>
+
+
+        <div class="input-group">
+				<span class="input-group-btn">
+					<span class="btn btn-primary" onclick="$(this).parent().find('input[type=file]').click();">Dodaj plik</span>
+					<input type="file" name="selectedFile" accept="text/html" id="selectedFile" value="wybierz plik"
+                           title="Wybierz plik który chcesz wgrać"
+                           onchange="$(this).parent().parent().find('.form-control').html($(this).val().split(/[\\|/]/).pop());"
+                           style="display: none;">
+				</span>
+            <span class="form-control"></span>
+        </div>
+        <br/>
+        <textarea id="orderReferenceInputTxt" name="orderReferenceInputTxt" placeholder="Opis dodatkowy..." class="form-control" rows="6"></textarea>
+        <div>
+            <br/>
+            <button id="sendFile" class="btn btn-primary form-control" data-ng-click="uploadFile($event)">wyślij</button>
+        </div>
+        <!-- <span class="btn btn-default btn-file">	<input type="file"  name="selectedFile" accept="text/html" id="selectedFile"
+                        value="wybierz plik" title="Wybierz plik który chcesz wgrać" /></span> -->
+        <!-- 		<button id="sendFile" class="btn btn-warning"  data-ng-click="uploadFile($event)">wyślij</button>
+
+                    <textarea  id="orderReferenceInputTxt" name="orderReferenceInputTxt" rows="" cols="" placeholder="referencja"></textarea> -->
+
+
+    </form>
+
+
+</div>
+<br/>
+
+</body>
+</html>

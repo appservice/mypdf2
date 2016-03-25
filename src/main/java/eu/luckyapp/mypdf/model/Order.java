@@ -82,7 +82,7 @@ public class Order implements Serializable {
 		return "Order [id=" + id + ", version=" + version + ", number=" + number + ", date=" + date + ", purchaser="
 				+ purchaser + ", supplier=" + supplier + ", factory=" + factory + ", orderReference=" + orderReference
 				+ ", suppliesGroup=" + suppliesGroup
-				+ /* ", items=" + items + */"]";
+				+  "\n, items=" + items + "]";
 	}
 
 	public Long getId() {

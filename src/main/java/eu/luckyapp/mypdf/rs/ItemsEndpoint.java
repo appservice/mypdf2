@@ -1,7 +1,7 @@
 package eu.luckyapp.mypdf.rs;
 
 import java.util.List;
-import java.util.logging.Logger;
+
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 
 import eu.luckyapp.mypdf.dao.ItemDAO;
 import eu.luckyapp.mypdf.model.Item;
+import org.slf4j.Logger;
 
 @Path("/items")
 @Produces(value = { MediaType.APPLICATION_JSON })
