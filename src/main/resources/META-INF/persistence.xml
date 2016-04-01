@@ -2,7 +2,8 @@
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.1" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 <persistence-unit name="mypdf-persistence-unit" transaction-type="JTA">
   <description>mypdf2 Persistence Unit</description>
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
     <jta-data-source>java:jboss/datasources/h2_db_in_file_mypdf2</jta-data-source>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>

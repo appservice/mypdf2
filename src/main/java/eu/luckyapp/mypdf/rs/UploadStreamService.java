@@ -52,7 +52,7 @@ public class UploadStreamService {
 		try {
 		
 		
-			String orderReference =new String(form.getOrderReference(),"UTF-8");
+			String orderReference =new String(form.getOrderReference(),"UTF-8")/*.replaceAll("(\\r\\n|\\n)", "<br>")*/;
 			Log.info(orderReference);
 	
 

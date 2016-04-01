@@ -1,8 +1,11 @@
 'use strict';
 
-var app = angular.module('myApp', [ 'ngRoute', 'ngMaterial', 'restangular',/* 'myApp.directives', */'myApp.controllers', 'myApp.services' ]);
+var app = angular.module('myApp', [ 'ngRoute', 'ngMaterial', 'restangular','ngSanitize', /* 'myApp.directives', */'myApp.controllers', 'myApp.services','myApp.filters' ]);
 
-app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider,GetLoggedUserService) {
+
+	//$locationProvider.html5Mode(true);
+	//$locationProvider.hashPrefix('!');
 
 	$routeProvider.when('/orders-table', {
 		templateUrl : 'views/ordersTable.html',
@@ -14,8 +17,8 @@ app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $lo
 	});
 
 	$routeProvider.when('/home',{
-		templateUrl:'views/home.html'
-	//	resolve:'currentUser'
+		templateUrl:'views/home.html',
+		resolve:GetLoggedUserService
 	});
 
 	$routeProvider.when('/pick-up',{
@@ -28,7 +31,6 @@ app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $lo
 
 	});
 
-	/* $locationProvider.html5Mode(true); */
 } ]);
 
 

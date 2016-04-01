@@ -16,6 +16,7 @@ public class UploadedFileMultiForm {
 
 	@FormParam("orderReference")
 	public void setOrderReference(byte[] orderReference) {
+
 		this.orderReference = orderReference;
 	}
 

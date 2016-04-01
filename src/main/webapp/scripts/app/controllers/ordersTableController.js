@@ -32,43 +32,57 @@ function ($scope, $timeout,$filter, $mdSidenav, $log, $mdDialog, $mdToast, Resta
 
 	// ------------find
 	// order--------------------------------------------------------------------------------------------------
+	//$scope.param=jQuery.param()
+	
 	$scope.findOrder = function(orderCriteria) {
 
 
 
 		var requestParameters={
-				number : orderCriteria.orderNumber,
-				supplier : orderCriteria.orderSupplier,
-				purchaser : orderCriteria.orderPurchaser,
-				factory : orderCriteria.orderFactory,
+				number : orderCriteria.orderNumber||null,
+				supplier : orderCriteria.orderSupplier||null,
+				purchaser : orderCriteria.orderPurchaser||null,
+				factory : orderCriteria.orderFactory||null,
 
-				itemName : orderCriteria.orderItemName,
-				orderReference : orderCriteria.orderReference,
-				itemIndex : orderCriteria.itemIndex,
-				itemDescription:orderCriteria.itemDescription,
-				suppliesGroup:orderCriteria.suppliesGroup,
-				warehouseReleasePerson:orderCriteria.warehouseReleasePerson,
-				overdueDays:orderCriteria.overdueDays,
-				mpk:orderCriteria.mpk,
-			    budget:orderCriteria.budget,
-				receivingPerson:orderCriteria.receivingPerson,
+				itemName : orderCriteria.orderItemName||null,
+				orderReference : orderCriteria.orderReference||null,
+				itemIndex : orderCriteria.itemIndex||null,
+				itemDescription:orderCriteria.itemDescription||null,
+				suppliesGroup:orderCriteria.suppliesGroup||null,
+				warehouseReleasePerson:orderCriteria.warehouseReleasePerson||null,
+				overdueDays:orderCriteria.overdueDays||null,
+				mpk:orderCriteria.mpk||null,
+			    budget:orderCriteria.budget||null,
+				receivingPerson:orderCriteria.receivingPerson||null,
 				startPosition : $scope.startPosition,
 				maxResult : 10
 			};
 	 if(orderCriteria.orderDateFrom!=null){
-			 requestParameters.orderDateFrom= orderCriteria.orderDateFrom.getTime();
+			 requestParameters.orderDateFrom= orderCriteria.orderDateFrom.getTime()||null;
 		 }
 		if(orderCriteria.orderDateTo!=null){
-			requestParameters.orderDateTo=orderCriteria.orderDateTo.getTime();
+			requestParameters.orderDateTo=orderCriteria.orderDateTo.getTime()||null;
 		}
 
 		if(orderCriteria.warehouseReleaseDateFrom!=null){
-			requestParameters.warehouseReleaseDateFrom=orderCriteria.warehouseReleaseDateFrom.getTime();
+			requestParameters.warehouseReleaseDateFrom=orderCriteria.warehouseReleaseDateFrom.getTime()||null;
 		}
 		if(orderCriteria.warehouseReleaseDateTo!=null){
-			requestParameters.warehouseReleaseDateTo=orderCriteria.warehouseReleaseDateTo.getTime();
+			requestParameters.warehouseReleaseDateTo=orderCriteria.warehouseReleaseDateTo.getTime()||null;
 		}
+		 var query={};
+		for(item in requestParameters) {
+			if(requestParameters[item] != null ) {//&& requestParameters[item].length > 0
+				query[item] = requestParameters[item]
+			//	console.log($scope.myQueryParam)
+			//	console.log($.param($scope.myQueryParam));
+			}
+		}
+		$scope.myQueryParam=jQuery.param(query);
 
+
+			jQuery.param(requestParameters,true);
+		console.log($scope.myQueryParam);
 		//Restangular.all('/orders').customGET("",requestParameters ).then(function(data) {
 		Restangular.all('/orders').getList(requestParameters ).then(function(data) {
 

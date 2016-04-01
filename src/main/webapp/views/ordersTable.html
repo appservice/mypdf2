@@ -39,7 +39,7 @@
             <td>{{order.date}}</td>
             <td>{{order.factory}}</td>
             <td>{{order.suppliesGroup}}</td>
-            <td style="width: 35%">{{order.orderReference}}</td>
+            <td style="width: 35%" ><div  data-ng-bind-html="order.orderReference| newlines"></div></td>
             <td style="direction: rtl;">
                 <!--  <span flex></span><md-button class="md-raised md-primary" >zapisz</md-button>-->
             </td>
@@ -185,6 +185,10 @@
     <button style="text-align: center; margin: 0 auto;" class="btn" data-ng-click="showNextSite() " data-ng-show="showButton">
         Nastepna strona<i class="glyphicon glyphicon-chevron-right"></i>
     </button>
+    <div style="margin-top:30px" data-ng-show="orderList.length>0">
+        <a class="btn btn-default" href="resources/paged-orders/cvs?{{myQueryParam}}">exportuj do cvs</a>
+    </div>
+
 
 </div>
 
