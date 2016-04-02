@@ -60,7 +60,7 @@ public class OrderService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Page<Order> getAllInPage(@BeanParam OrderQueryParam orderQueryParam, @QueryParam("page") int page, @QueryParam("size") int size, @DefaultValue("ASC") @QueryParam("sort") Sort.Direction sort) {
+    public Page<Order> getAllInPage(@BeanParam OrderQueryParam orderQueryParam, @QueryParam("page") int page, @QueryParam("size") int size, @DefaultValue("DESC") @QueryParam("sort") Sort.Direction sort) {
 
         Log.debug("OrderQueryParam {}", orderQueryParam.toString());
         try {
@@ -87,11 +87,12 @@ public class OrderService {
     @Path("/for-pickup")
     @Produces(MediaType.APPLICATION_JSON)
     public Page<Order> getOrdersForPickUpByDepartment(@QueryParam("department") @DefaultValue("") String department,
-                                                      @QueryParam("startPosition") @DefaultValue("0") int page,
-                                                      @QueryParam("maxResult") @DefaultValue("10") int size) {
+                                                      @QueryParam("page") @DefaultValue("0") int page,
+                                                      @QueryParam("size") @DefaultValue("10") int size,
+                                                      @DefaultValue("DESC") @QueryParam("sort") Sort.Direction sort) {
 
         Specification<Order> specification = new PickupOrderSpecification(department);
-        PageRequest pageRequest = new PageRequest(page, size);
+        PageRequest pageRequest = new PageRequest(page, size,sort,"number");
         Page<Order> orders = orderRepository.findAll(specification, pageRequest);
 
 
@@ -116,7 +117,16 @@ public class OrderService {
         return Response.accepted(savedOrder).build();
     }
 
-    @DELETE
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/{id:\\d+}")
+    public Response updateOrder(Order order, @PathParam("id") long id) {
+        order.setId(id);
+        Order o = orderRepository.save(order);
+        return Response.accepted(o).build();
+    }
+
+/*    @DELETE
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/{id:\\d+}")
     public Response deleteOrder(@PathParam("id") Long id, Order order) {
@@ -124,7 +134,7 @@ public class OrderService {
         orderRepository.delete(order);
 
         return Response.noContent().build();
-    }
+    }*/
 
 
     @DELETE
@@ -161,7 +171,7 @@ public class OrderService {
 
             return Response.ok(streamingOutput).header("Content-Disposition", "attachment; filename=\"zestawienie_zamowien.csv\"").build();
         }
-        return Response.noContent().header("error","User have not sufficient permissions for this functional!").entity("Brak uprawnień do tej transakcji!").build();
+        return Response.noContent().header("error", "User have not sufficient permissions for this functional!").entity("Brak uprawnień do tej transakcji!").build();
 
     }
 }

@@ -8,10 +8,10 @@ import javax.persistence.PersistenceContext;
 
 
 @Singleton
-public class EntityManagrProducer {
+public class EntityManagerProducer {
 
 	   @Produces
-	   @Dependent
+	  // @Dependent
 	   @PersistenceContext(unitName = "mypdf-persistence-unit")
 	   private EntityManager em;
 

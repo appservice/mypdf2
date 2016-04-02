@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('myApp', [ 'ngRoute', 'ngMaterial', 'restangular','ngSanitize', /* 'myApp.directives', */'myApp.controllers', 'myApp.services','myApp.filters' ]);
+var app = angular.module('myApp', [ 'ngRoute', 'ngMaterial', 'restangular','ngSanitize','bw.paging', /* 'myApp.directives', */'myApp.controllers', 'myApp.services','myApp.filters' ]);
 
 app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider,GetLoggedUserService) {
 

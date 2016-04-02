@@ -1,6 +1,7 @@
 package eu.luckyapp.mypdf.rs;
 
 import eu.luckyapp.mypdf.dao.OrderDAO;
+import eu.luckyapp.mypdf.dao.OrderRepository;
 import eu.luckyapp.mypdf.exceptions.OrderExistException;
 import eu.luckyapp.mypdf.model.Order;
 import eu.luckyapp.parsers.OrderParser;
@@ -32,7 +33,8 @@ public class UploadStreamService {
 	Logger Log;
 
 	@Inject
-	OrderDAO orderDAO;
+	OrderRepository orderRepository;
+	//OrderDAO orderDAO;
 
 	@Inject
 	OrderParser op;
@@ -87,16 +89,16 @@ public class UploadStreamService {
 
 	private Order addOrderToDb(Order order) throws OrderExistException {
 
-		if (orderDAO.findByNumberStrict(order.getNumber()) != null) {
+		if (orderRepository.findOrderByNumber(order.getNumber()) != null) {
 			Log.info("order exist!");
 			throw new OrderExistException(order.getNumber());
 
 		} else {
 
-			orderDAO.create(order);
+			Order o=orderRepository.save(order);//.create(order);
 		//	Log.info(order.toString());
 			//Log.info(order.getItems().toString());
-			return order;
+			return o;
 		}
 
 	}

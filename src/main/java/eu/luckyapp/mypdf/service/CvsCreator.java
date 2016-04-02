@@ -32,7 +32,7 @@ public class CvsCreator {
 
 
     @Inject
-   private OrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
 
     @Inject
@@ -43,7 +43,7 @@ public class CvsCreator {
     private NumberFormat numberFormat = NumberFormat.getInstance(locale);
 
 
-    PrintWriter getData(Specification<Order> specification , OutputStream os) {
+    PrintWriter getData(Specification<Order> specification, OutputStream os) {
 
 
         List<Order> orders = orderRepository.findAll(specification);
@@ -59,8 +59,6 @@ public class CvsCreator {
             return printWriter;
 
         }
-
-
 
 
     }
@@ -85,10 +83,11 @@ public class CvsCreator {
                 "Wydawał" + ";" +
                 "Dostarczone" + ";" +
                 "Opis dod." + ";" +
-                "Referencja" + ";" +
+
                 "Fabryka" + ";" +
                 "Dostawca" + ";" +
-                "Grupa zaop.";
+                "Grupa zaop.;" +
+                "Referencja" + ";";
     }
 
 
@@ -120,9 +119,9 @@ public class CvsCreator {
         String warehouseRealesePerson = item.getWarehouseReleasePerson() != null ? item.getWarehouseReleasePerson() : "";
         sb.append(warehouseRealesePerson).append(";");
 
-        if(item.getWarehouseReleaseDate()!=null){
+        if (item.getWarehouseReleaseDate() != null) {
             sb.append(simpleDateFormat.format(item.getWarehouseReleaseDate()));
-        }else{
+        } else {
             sb.append("");
         }
         sb.append(";");
@@ -138,14 +137,14 @@ public class CvsCreator {
         }
         sb.append(";");
 
-        String description = item.getDescription() != null ? item.getDescription().replace(';',',').replaceAll("(\\r\\n|\\n)", "   ") : "";
-      //  Log.info(description);
+        String description = item.getDescription() != null ? item.getDescription().replace(';', ',').replaceAll("(\\r\\n|\\n)", "   ") : "";
+        //  Log.info(description);
         sb.append(description).append(";")
 
-               // .append(order.getOrderReference()).append(";")
+                .append(order.getSuppliesGroup()).append(";")
                 .append(order.getFactory()).append(";")
                 .append(order.getSupplier()).append(";")
-                .append(order.getOrderReference().replace(';',',').replaceAll("(\\r\\n|\\n)", "   "));
+                .append(order.getOrderReference().replace(';', ',').replaceAll("(\\r\\n|\\n)", "   "));
 
 
         return sb.toString();

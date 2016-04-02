@@ -13,6 +13,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.stream.Stream;
 
@@ -22,9 +23,12 @@ import java.util.stream.Stream;
  * Private company LuckyApp
  * Created by lmochel on 2016-03-29.
  */
+//@Repository
 public interface OrderRepository extends JpaRepository<Order,Long>,JpaSpecificationExecutor<Order> {
 
-    @Query("select o from Order o")
-    Stream<Order> getAllAsStream();//Specification<Order> specification
+ //   @Query("select o from Order o")
+  //  Stream<Order> getAllAsStream();//Specification<Order> specification
+
+    public Order findOrderByNumber(String orderNumber);
 
 }
