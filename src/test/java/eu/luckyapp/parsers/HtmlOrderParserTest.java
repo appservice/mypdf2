@@ -10,10 +10,15 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import eu.luckyapp.mypdf.model.Order;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class HtmlOrderParserTest {
 	private HtmlOrderParser parser;
 	private String text;
+
+
 
 	@Before
 	public void setUp() throws Exception {
@@ -21,7 +26,7 @@ public class HtmlOrderParserTest {
 
 		parser = new HtmlOrderParser();
 
-		Path file = Paths.get("d:///4500450384.htm");// 4500413761.htm");//4500413690.htm");//4500413761.htm
+		Path file = Paths.get("d:///fds.htm");// 4500413761.htm");//4500413690.htm");//4500413761.htm
 														// 4500413690.htm
 		text = new String(Files.readAllBytes(file));
 
@@ -32,7 +37,7 @@ public class HtmlOrderParserTest {
 	}
 
 	@Test
-	@org.junit.Ignore
+	//@org.junit.Ignore
 	public void testParse() {
 		try {
 			parser.parse(text);
@@ -62,7 +67,7 @@ public class HtmlOrderParserTest {
 	}
 
 	@Test
-	@Ignore
+	//@Ignore
 	public void testParseToOrder() throws ParserException {
 		Order o = parser.parseToOrder(text);
 		System.out.println("to jest to " + o);

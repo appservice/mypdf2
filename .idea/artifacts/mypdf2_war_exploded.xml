@@ -12,6 +12,7 @@
           <element id="library" level="project" name="Maven: org.gagravarr:vorbis-java-tika:0.6" />
           <element id="library" level="project" name="Maven: edu.ucar:netcdf:4.2.20" />
           <element id="library" level="project" name="Maven: edu.ucar:unidataCommon:4.2.20" />
+          <element id="library" level="project" name="Maven: net.jcip:jcip-annotations:1.0" />
           <element id="library" level="project" name="Maven: commons-httpclient:commons-httpclient:3.1" />
           <element id="library" level="project" name="Maven: net.sourceforge.jmatio:jmatio:1.0" />
           <element id="library" level="project" name="Maven: org.apache.james:apache-mime4j-core:0.7.2" />
@@ -44,9 +45,7 @@
           <element id="library" level="project" name="Maven: com.uwyn:jhighlight:1.0" />
           <element id="library" level="project" name="Maven: com.pff:java-libpst:0.8.1" />
           <element id="library" level="project" name="Maven: org.jsoup:jsoup:1.7.2" />
-          <element id="library" level="project" name="Maven: net.jcip:jcip-annotations:1.0" />
-          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
-          <element id="library" level="project" name="Maven: org.javassist:javassist:3.18.1-GA" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1.1" />
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.3" />
           <element id="library" level="project" name="Maven: org.glassfish.jersey.core:jersey-client:2.22.1" />
           <element id="library" level="project" name="Maven: javax.ws.rs:javax.ws.rs-api:2.0.1" />
@@ -59,20 +58,26 @@
           <element id="library" level="project" name="Maven: org.glassfish.hk2.external:aopalliance-repackaged:2.4.0-b31" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2.external:javax.inject:2.4.0-b31" />
           <element id="library" level="project" name="Maven: org.glassfish.hk2:hk2-locator:2.4.0-b31" />
-          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.9.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.11.4.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.1.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.1.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.1.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.1.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.1.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-jpamodelgen:5.0.7.Final" />
+          <element id="library" level="project" name="Maven: xml-apis:xml-apis:1.0.b2" />
+          <element id="library" level="project" name="Maven: org.javassist:javassist:3.18.1-GA" />
+          <element id="library" level="project" name="Maven: javax.enterprise:cdi-api:1.2" />
+          <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-jpa:1.8.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.data:spring-data-commons:1.10.2.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-orm:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:4.0.9.RELEASE" />
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.1.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.1.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.1.9.RELEASE" />
-          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.7" />
-          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.13" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.16" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:4.0.9.RELEASE" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjrt:1.8.6" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.7.12" />
+          <element id="library" level="project" name="Maven: javax:javaee-api:7.0" />
+          <element id="library" level="project" name="Maven: com.sun.mail:javax.mail:1.5.3" />
         </element>
       </element>
       <element id="directory" name="META-INF">

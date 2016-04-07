@@ -317,18 +317,34 @@ public class Item implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", version=" + version + ", order=" /*+ order*/ + ", index=" + itemIndex + ", name=" + name;
-			/*	+ ", mpk=" + mpk + ", budget=" + budget + ", isDispatched=" + isDispatched + ", amount=" + amount
-				+ ", unit=" + unit + ", price=" + price + ", currency=" + currency + ", expectedDeliveryDate="
-				+ expectedDeliveryDate + ", deliveryDate=" + deliveryDate + ", warehouseReleaseDate="
-				+ warehouseReleaseDate + ", warehouseReleasePerson=" + warehouseReleasePerson + ", isReleased="
-				+ isReleased + ", positionInOrder=" + positionInOrder + ", partialDeliveryGoodsAmount="
-				+ partialDeliveryGoodsAmount + ", description=" + description + "]";*/
+		return "Item{" +
+				"id=" + id +
+				", version=" + version +
+				", itemIndex='" + itemIndex + '\'' +
+				", receivingPerson='" + receivingPerson + '\'' +
+				", name='" + name + '\'' +
+				", mpk='" + mpk + '\'' +
+				", budget='" + budget + '\'' +
+				", isDispatched=" + isDispatched +
+				", amount=" + amount +
+				", unit='" + unit + '\'' +
+				", price=" + price +
+				", currency='" + currency + '\'' +
+				", expectedDeliveryDate=" + expectedDeliveryDate +
+				", deliveryDate=" + deliveryDate +
+				", warehouseReleaseDate=" + warehouseReleaseDate +
+				", warehouseReleasePerson='" + warehouseReleasePerson + '\'' +
+				", realisingPerson='" + realisingPerson + '\'' +
+				", isReleased=" + isReleased +
+				", positionInOrder=" + positionInOrder +
+				", partialDeliveryGoodsAmount=" + partialDeliveryGoodsAmount +
+				", description='" + description + '\'' +
+				'}';
 	}
 
 	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
+         * @see java.lang.Object#hashCode()
+         */
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -245,7 +245,7 @@ public class HtmlOrderParser implements OrderParser {
 		}
 	//	Log.warning(items.toString());
 	     order.setItems(items);
-	   Log.debug(order.toString());
+	   //Log.debug(order.toString());
 
 		return order;
 	}

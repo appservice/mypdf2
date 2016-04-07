@@ -12,6 +12,7 @@ import eu.luckyapp.mypdf.dao.OrderRepository;
 import eu.luckyapp.mypdf.model.Item;
 import eu.luckyapp.mypdf.model.Order;
 import org.slf4j.Logger;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.inject.Inject;
@@ -45,8 +46,8 @@ public class CvsCreator {
 
     PrintWriter getData(Specification<Order> specification, OutputStream os) {
 
-
-        List<Order> orders = orderRepository.findAll(specification);
+        Sort sort = new Sort(Sort.Direction.ASC, "number");
+        List<Order> orders = orderRepository.findAll(specification, sort);
 
         try (PrintWriter printWriter = new PrintWriter(os)) {
 
@@ -83,10 +84,10 @@ public class CvsCreator {
                 "Wydawał" + ";" +
                 "Dostarczone" + ";" +
                 "Opis dod." + ";" +
-
+                "Grupa zaop.;" +
                 "Fabryka" + ";" +
                 "Dostawca" + ";" +
-                "Grupa zaop.;" +
+                "Zamawiający" + ";" +
                 "Referencja" + ";";
     }
 
@@ -100,13 +101,14 @@ public class CvsCreator {
                 .append(numberFormat.format(item.getAmount())).append(";")
                 .append(item.getUnit()).append(";")
                 .append(numberFormat.format(item.getPrice())).append(";")
-                .append(item.getCurrency()).append(";")
-                .append(item.getExpectedDeliveryDate()).append(";");
+                .append(item.getCurrency()).append(";");
+
+        if (item.getExpectedDeliveryDate() != null)
+            sb.append(item.getExpectedDeliveryDate());
+        sb.append(";");
         //item.getDeliveryDate() != null?sb.append(item.getDeliveryDate()):sb.append(";");
         if (item.getDeliveryDate() != null) {
             sb.append(simpleDateFormat.format(item.getDeliveryDate()));
-        } else {
-            sb.append("");
         }
         sb.append(";");
 
@@ -121,8 +123,6 @@ public class CvsCreator {
 
         if (item.getWarehouseReleaseDate() != null) {
             sb.append(simpleDateFormat.format(item.getWarehouseReleaseDate()));
-        } else {
-            sb.append("");
         }
         sb.append(";");
 
@@ -132,19 +132,23 @@ public class CvsCreator {
 
         if (item.isDispatched()) {
             sb.append("x");
-        } else {
-            sb.append("");
         }
         sb.append(";");
 
         String description = item.getDescription() != null ? item.getDescription().replace(';', ',').replaceAll("(\\r\\n|\\n)", "   ") : "";
         //  Log.info(description);
-        sb.append(description).append(";")
+        sb.append(description).append(";");
+        if (order.getSuppliesGroup() != null)
+            sb.append(order.getSuppliesGroup());
+        sb.append(";");
+        sb .append(order.getFactory()).append(";");
 
-                .append(order.getSuppliesGroup()).append(";")
-                .append(order.getFactory()).append(";")
-                .append(order.getSupplier()).append(";")
-                .append(order.getOrderReference().replace(';', ',').replaceAll("(\\r\\n|\\n)", "   "));
+        if (order.getSupplier() != null)
+            sb.append(order.getSupplier());
+        sb.append(";");
+        sb.append(order.getPurchaser()).append(";");
+        if (order.getOrderReference() != null)
+            sb.append(order.getOrderReference().replace(';', ',').replaceAll("(\\r\\n|\\n)", "   "));
 
 
         return sb.toString();

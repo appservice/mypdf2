@@ -123,8 +123,8 @@
                         <td>
                             <label>
                                 <input type="text" data-ng-model="item.warehouseReleasePerson"
-                                       value=" {{item.warehouseReleasePerson}}"
-                                       data-ng-blur="receivingPersonUpdate(item)"/>
+                                       value=" {{item.warehouseReleasePerson}}"data-ng-change="receivingPersonUpdate(item)"
+                                       data-ng-model-options="{updateOn:'blur'}"/>
                             </label>
                         </td>
                         <td style="width: 80px">{{item.warehouseReleaseDate|date:'dd-MM-yyyy HH:mm'}}</td>

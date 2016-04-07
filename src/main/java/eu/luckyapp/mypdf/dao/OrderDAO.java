@@ -5,7 +5,6 @@ import eu.luckyapp.mypdf.model.Item_;
 import eu.luckyapp.mypdf.model.Order;
 import eu.luckyapp.mypdf.model.Order_;
 import eu.luckyapp.mypdf.rs.OrderQueryParam;
-import org.hibernate.criterion.*;
 import org.slf4j.Logger;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +16,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -32,7 +30,7 @@ public class OrderDAO extends AbstractDAO<Order> {
     @Inject
     EntityManager em;
 
-    @Resource
+  @Resource
     SessionContext context;
 
     private CriteriaBuilder cb;

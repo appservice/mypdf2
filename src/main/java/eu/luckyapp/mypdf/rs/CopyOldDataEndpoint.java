@@ -20,6 +20,7 @@ import eu.luckyapp.mypdf.dao.OrderDAO;
 import eu.luckyapp.mypdf.model.Order;
 import eu.luckyapp.mypdf.model.TableView;
 import eu.luckyapp.mypdf.model.TableViewToOrderParser;
+import eu.luckyapp.mypdf.service.OrderService;
 import org.slf4j.Logger;
 
 @Path("/copy")
@@ -29,7 +30,9 @@ public class CopyOldDataEndpoint {
 	@Inject
 	private Logger Log;
 	
-	@Inject OrderDAO orderDAO;
+	//@Inject //OrderDAO orderDAO;
+	@Inject
+	OrderService orderService;
 
 	private List<TableView> tableList;
 
@@ -69,10 +72,10 @@ public class CopyOldDataEndpoint {
 		TableViewToOrderParser parser=new TableViewToOrderParser();
 		Set<Order>ordersList=parser.parseOrdersList(tableList);
 		for(Order order:ordersList){
-			orderDAO.create(order);
+			orderService.addNewOrder(order);
 		}
 	
-		return Response.accepted("Dodano do bazy "+ordersList.size()+ " pozycji\nBaza zawiera obecnie "+orderDAO.count()+" zamowien!").build();
+		return Response.accepted("Dodano do bazy "+ordersList.size()+ " pozycji\nBaza zawiera obecnie "+" zamowien!").build();
 	}
 	
 	

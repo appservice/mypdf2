@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -18,8 +19,8 @@ import org.slf4j.Logger;
 
 @Path("/orders")
 @Produces(value = {MediaType.APPLICATION_JSON})
-// @Encoded
-// @Stateless
+ @Encoded
+ @Stateless
 public class OrderEndpoint {
 
     @Inject

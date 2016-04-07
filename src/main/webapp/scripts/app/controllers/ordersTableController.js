@@ -7,12 +7,9 @@ angular.module('myApp.controllers').controller('OrdersTableCtrl'
             // $scope.toggleLeft = buildDelayedToggler('left');
             $scope.toggleRight = buildToggler('right');
             $scope.page = {};
-            $scope.orderList = [];
-//	$scope.orderDateFrom=null;
             $scope.startPosition = 0;
             $scope.orderCriteria = {};
             $scope.orderCriteria.page = 0;
-            $scope.showButton = false;
             $scope.reverse = true;
             $scope.currentPage = 1;
 
@@ -23,7 +20,7 @@ angular.module('myApp.controllers').controller('OrdersTableCtrl'
             $scope.orderDirections = function (predicate, orderId) {
                 $scope.predicate = predicate + orderId;
                 $scope.reverse = ($scope.predicate === (predicate + orderId)) ? !$scope.reverse : false;
-                $scope.orderList[orderId].items = orderBy($scope.orderList[orderId].items, predicate, $scope.reverse);
+                $scope.page.content[orderId].items = orderBy($scope.page.content[orderId].items, predicate, $scope.reverse);
 
             };
 
@@ -87,7 +84,7 @@ angular.module('myApp.controllers').controller('OrdersTableCtrl'
 
                 console.log($scope.myQueryParam);
                 Restangular.one('/paged-orders', '').get(requestParameters).then(function (data) {
-                    $scope.showButton = true;
+
                     $scope.page = data.plain();
                     $scope.close();
 
@@ -132,7 +129,7 @@ angular.module('myApp.controllers').controller('OrdersTableCtrl'
                 RestFulResponse.one('/paged-orders/' + order.id).customPUT(order).then(
                     function (response) {
                         console.log(response.data.plain());
-                        $scope.orderList[numberOnList] = response.data.plain();
+                        $scope.page.content[numberOnList] = response.data.plain();
 
                         $mdDialog.show($mdDialog.alert()
                             // .parent(angular.element(document.querySelector('#popupContainer')))
@@ -162,6 +159,21 @@ angular.module('myApp.controllers').controller('OrdersTableCtrl'
                 );
             };
 
+            // --------------item update-------------------------------------
+            $scope.itemUpdate = function(orderid, item) {
+                /*
+                 * Restangular.one('/orders/'+orderid+"/items/"+item.id).customPUT(item).then(function(response){
+                 * console.log(response); });
+                 */
+                if (item.dispatched == false) {
+                    item.deliveryDate = new Date();
+                    item.receivingPerson = $rootScope.currentUser.name;
+                    // item.
+                } else {
+                    item.deliveryDate = null;
+                    item.receivingPerson = null;
+                }
+            };
 
             $scope.receivingPersonUpdate = function (item) {
                // console.log(item);
@@ -215,8 +227,8 @@ angular.module('myApp.controllers').controller('OrdersTableCtrl'
                 function deleteOrderService() {
                     RestFulResponse.all('/paged-orders/').customDELETE(order.id, {}, {'Content-Type': 'application/json'}).then(function (data) {
                         //order.remove({},{'Content-Type':   'application/json'}).then(function(results){
-                        var index = $scope.orderList.indexOf(order);
-                        if (index > -1) $scope.orderList.splice(index, 1);
+                        var index = $scope.page.content.indexOf(order);
+                        if (index > -1) $scope.page.content.splice(index, 1);
                         console.log('removed order ');
                         console.log(order);
                     }, function (error) {
