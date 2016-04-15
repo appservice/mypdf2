@@ -7,6 +7,8 @@ public class User {
 	
 	private String name;
 
+	private String role;
+
 	public String getName() {
 		return name;
 	}
@@ -15,4 +17,11 @@ public class User {
 		this.name = name;
 	}
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRoles(String role) {
+		this.role = role;
+	}
 }

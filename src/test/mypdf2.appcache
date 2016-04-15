@@ -18,7 +18,7 @@ CACHE MANIFEST
 /mypdf2/scripts/app/myApp.js
 /mypdf2/scripts/app/controllers/controllers.js
 /mypdf2/scripts/app/controllers/ordersTableController.js
-/mypdf2/scripts/app/controllers/table2Controller.js
+/mypdf2/scripts/app/controllers/addOrderController.js
 /mypdf2/scripts/app/services/services.js
 /mypdf2/scripts/app/services/RestFullResponseService.js
 /mypdf2/templates/footer.html

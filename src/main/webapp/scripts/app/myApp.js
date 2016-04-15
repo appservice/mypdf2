@@ -13,7 +13,7 @@ app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $lo
 	});
 	$routeProvider.when('/add-order', {
 		templateUrl : 'views/add_order.html',
-		controller : 'TableViewsListCtrl'
+		controller : 'AddOrderController'
 	});
 
 	$routeProvider.when('/home',{
@@ -25,6 +25,11 @@ app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $lo
 		templateUrl:'views/pickupParts.html',
 		controller : 'PickupPartsController'
 
+	});
+
+	$routeProvider.when('/edit-order/:orderID', {
+		templateUrl : 'views/edit_order.html',
+		controller : 'EditOrderController'
 	});
 	$routeProvider.otherwise({
 		redirectTo : '/home'

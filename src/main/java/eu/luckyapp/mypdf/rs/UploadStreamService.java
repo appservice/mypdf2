@@ -15,10 +15,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.core.*;
 import java.io.UnsupportedEncodingException;
 
 @Path("/file")
@@ -68,12 +65,13 @@ public class UploadStreamService {
 
 		} catch ( OrderExistException| ParserException | UnsupportedEncodingException e) {
 		
-			return Response.serverError().header("error", e.getMessage())
+			return Response.serverError().entity("{\"error\":\""+e.getMessage()+"\"}").header("error", e.getMessage())
+
 					.build();
 		}
 		catch ( Exception e) {
 			
-			return Response.serverError().header("error", e.getMessage())
+			return Response.serverError().entity("{\"error\":\""+e.getMessage()+"\"}").header("error", e.getMessage())
 					.build();
 		}
 
@@ -90,7 +88,7 @@ public class UploadStreamService {
 	private Order addOrderToDb(Order order) throws OrderExistException {
 
 		if (orderRepository.findOrderByNumber(order.getNumber()) != null) {
-			Log.info("order exist!");
+			Log.info("order exist exception!");
 			throw new OrderExistException(order.getNumber());
 
 		} else {

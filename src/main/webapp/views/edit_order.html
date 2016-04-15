@@ -1,0 +1,184 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+
+</head>
+<body layout="column">
+
+<!-- TOOLBAR -->
+<div class="container">
+    <div class="page-header center">
+        <h3>Edytuj zamówienie</h3>
+    </div>
+    <br/>
+</div>
+
+
+<!--<div data-ng-repeat="order in page.content" style="margin-bottom: 40pt;">-->
+<table id="table1" data-ng-if="order">
+    <!-- 	<thead> -->
+    <tr style="font-size: smaller;">
+
+        <td>Lp.</td>
+        <td>Numer:</td>
+        <td>Zamawiający:</td>
+        <td>Dostawca:</td>
+        <td>Data:</td>
+        <td>Dział zaop.:</td>
+        <td>Grupa zaop.:</td>
+        <td>Ref:</td>
+        <td></td>
+    <tr>
+        <td></td>
+        <td>{{order.number}}</td>
+        <td><input type="text" data-ng-model="order.purchaser"/></td>
+        <td><input type="text" data-ng-model="order.supplier"/></td>
+        <td><input type="text" data-ng-model="order.date"/></td>
+        <td><input type="text" data-ng-model="order.factory"/></td>
+        <td><input type="text" data-ng-model="order.suppliesGroup"/></td>
+        <td style="width: 35%"><textarea data-ng-model="order.orderReference" style="width: 100%"></textarea></td>
+        <td style="direction: rtl;">
+            <!--  <span flex></span><md-button class="md-raised md-primary" >zapisz</md-button>-->
+        </td>
+    </tr>
+    <tr>
+        <td colspan="8">
+            <table class="CSSTableGenerator"><!--CSSTableGenerator-->
+                <tr>
+                    <td data-ng-click="orderDirections('positionInOrder',$index)"> lp
+                        <span class="sortorder" data-ng-show="predicate === 'positionInOrder{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td data-ng-click="orderDirections('itemIndex',$index)"> index
+                        <span class="sortorder" data-ng-show="predicate === 'itemIndex{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td>
+                        <div data-ng-click="orderDirections('name',$index)"> nazwa
+                            <span class="sortorder" data-ng-show="predicate === 'name{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                        </div>
+                        <div style="color: black">
+                            <input type="text" placeholder="Filtruj" data-ng-model="myFilter.name" data-ng-model-options="{ debounce: 500 }"
+                                   style="width:90%;opacity: 0.8;"/></div>
+                    </td>
+                    <td style="width: 12px;" data-ng-click="orderDirections('amount',$index)"> ilość
+                        <span class="sortorder" data-ng-show="predicate === 'amount{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td>jm</td>
+                    <td data-ng-click="orderDirections('price',$index)" data-ng-show="!(currentUser.name==='kdymek' || currentUser.name==='cpfip')">
+                        cena
+                            <span class="sortorder" data-ng-show="predicate === 'price{{$index}}'"
+                                  data-ng-class="{reverse:reverse}"></span>
+                    </td>
+
+                    <td style="width: 20px;" data-ng-click="orderDirections('expectedDeliveryDate',$index)">
+                        Plan. data dost
+                            <span class="sortorder" data-ng-show="predicate === 'expectedDeliveryDate{{$index}}'"
+                                  data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td data-ng-click="orderDirections('mpk',$index)"> MPK
+                        <span class="sortorder" data-ng-show="predicate === 'mpk{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+
+                    <td data-ng-click="orderDirections('budget',$index)"> Zlec.
+                        <span class="sortorder" data-ng-show="predicate === 'budget{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td style="width: 8px;" data-ng-click="orderDirections('dispatched',$index)"> Dostar.
+                        <span class="sortorder" data-ng-show="predicate === 'dispatched{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+
+
+                    <td data-ng-click="orderDirections('deliveryDate',$index)">
+                        Data PZ
+                        <span class="sortorder" data-ng-show="predicate === 'deliveryDate{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+
+                    </td>
+                    <td data-ng-click="orderDirections('receivingPerson',$index)">
+                        Przyjął
+                        <span class="sortorder" data-ng-show="predicate === 'receivingPerson{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td data-ng-click="orderDirections('warehouseReleasePerson',$index)"> Odbierający
+                        <span class="sortorder" data-ng-show="predicate === 'warehouseReleasePerson{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td data-ng-click="orderDirections('warehouseReleaseDate',$index)"> Data wyd.
+                        <span class="sortorder" data-ng-show="predicate === 'warehouseReleaseDate{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td data-ng-click="orderDirections('realisingPerson',$index)"> Wydał
+                        <span class="sortorder" data-ng-show="predicate === 'realisingPerson{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+                    <td data-ng-click="orderDirections('description',$index)"> Uwagi
+                        <span class="sortorder" data-ng-show="predicate === 'description{{$index}}'" data-ng-class="{reverse:reverse}"></span>
+                    </td>
+
+                </tr>
+                <!-- <tbody> -->
+                <tr data-ng-repeat="item in order.items|filter:myFilter.name track by item.id">
+                    <td>{{item.positionInOrder}}</td>
+                    <td style="width: 125px"><input type="text" data-ng-model="item.itemIndex" style="width:10em;"/></td>
+                    <td style="width: 400px"><input type="text" data-ng-model="item.name" style="width:24em;"/></td>
+                    <td><input type="text" data-ng-model="item.amount" style="width:5em;"/></td>
+                    <td style="width: 20px"><input type="text" data-ng-model="item.unit" style="width:3em;"/></td>
+                    <td style="width: 80px">
+                        <input type="text" data-ng-model="item.price" style="width:6em;"/><input type="text" data-ng-model="item.currency" style="width:6em;"/>
+                    </td>
+                    <!-- 	<td>{{item.currency}}</td> -->
+                    <td><input type="text" data-ng-model="item.expectedDeliveryDate" style="width:6em;"/></td>
+                    <td><input type="text" data-ng-model="item.mpk" style="width:5em;"/></td>
+                    <td><input type="text" data-ng-model="item.budget" style="width:6em;"/></td>
+                    <td style="text-align: center; margin-left: auto; margin-right: auto;">
+                        <md-checkbox ng-model="item.dispatched" aria-label="..."
+                                     data-ng-click="itemUpdate(order.id,item)"></md-checkbox>
+                        <!--  data-ng-click="orderReceiving(order)" -->
+                    </td>
+                    <td style="width: 80px">{{item.deliveryDate|date:'dd-MM-yyyy HH:mm'}}
+                       <!-- <input type="text" data-ng-model="item.deliveryDate|date:'dd-MM-yyyy HH:mm'" placeholder="dd-MM-yyyy HH:mm"
+                                style="width:10em;"/>-->
+                    </td>
+                    <td><input type="text" data-ng-model="item.receivingPerson" style="width:6em;"/></td>
+                    <td>
+                        <label>
+                            <input type="text" data-ng-model="item.warehouseReleasePerson"
+                                   value=" {{item.warehouseReleasePerson}}" data-ng-change="receivingPersonUpdate(item)"
+                                   data-ng-model-options="{updateOn:'blur'}" style="width:8em;"
+                            /><!--data-ng-blur="receivingPersonUpdate(item)"-->
+                        </label>
+                    </td>
+                    <td style="width: 80px">{{item.warehouseReleaseDate|date:'dd-MM-yyyy HH:mm'}}</td>
+                    <td><input type="text" data-ng-model="item.realisingPerson" style="width:6em;"/></td>
+
+                    <td>
+
+                        <label>
+                            <textarea rows="2" cols="20" style="height: 28pt" data-ng-model="item.description">{{item.description}}</textarea>
+                        </label>
+                    </td>
+                    <!-- 	</tbody> -->
+
+                </tr>
+            </table>
+
+        </td>
+    </tr>
+    <!-- 	</tbody> -->
+</table>
+
+<div>
+    <table style="width: 100%;">
+        <tr>
+            <td style="padding-left: 30px">
+                <md-button class="md-raised " data-ng-click="deleteOrder(order,$event)">Usuń</md-button>
+            </td>
+            <td style="direction:rtl;padding-right:30px">
+                <md-button class="md-raised md-primary" data-ng-click="saveOrder(order,$index,$event)">Zapisz</md-button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+<div id="save-button-{{$index}}" layout="row">
+    <br/>
+</div>
+
+<!--</div>-->
+
+
+</body>
+</html>

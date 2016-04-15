@@ -159,11 +159,14 @@
         <!-- 	</tbody> -->
     </table>
 
-    <div>
+    <div >
         <table style="width: 100%;">
             <tr>
-                <td style="padding-left: 30px">
+                <td style="padding-left: 30px;width:5em;" data-ng-show="currentUser.role==='ADMIN'">
                     <md-button class="md-raised " data-ng-click="deleteOrder(order,$event)">Usuń</md-button>
+                </td>
+                <td data-ng-show="currentUser.role==='ADMIN'">
+                    <md-button class="md-raised " data-ng-href="#/edit-order/{{order.id}}">Edytuj</md-button>
                 </td>
                 <td style="direction:rtl;padding-right:30px">
                     <md-button class="md-raised md-primary" data-ng-click="saveOrder(order,$index,$event)">Zapisz</md-button>
@@ -172,9 +175,10 @@
         </table>
 
     </div>
-    <div id="save-button-{{$index}}" layout="row">
+    <br>
+  <!--  <div id="save-button-{{$index}}" layout="row">
         <br/>
-    </div>
+    </div>-->
 
 </div>
 
@@ -204,7 +208,7 @@
             paging-action="changePage( page, pageSize, total)" >
     </paging>
 
-    <div style="margin-top:30px" data-ng-show="page.content.length>0">
+    <div style="margin-top:30px" data-ng-show="page.content.length>0" >
         <a class="btn btn-default" href="resources/paged-orders/cvs?{{myQueryParam}}">exportuj do cvs</a>
     </div>
 
@@ -305,21 +309,22 @@
 
                         <div style="font-size: small;">
                             Data przyjęcia:
-                            <md-datepicker ng-model="orderCriteria.despatchDateFrom"
-                                           md-placeholder="od:"></md-datepicker>
+                            <md-datepicker ng-model="orderCriteria.despatchDateFrom" md-placeholder="od:"></md-datepicker>
                             <md-datepicker ng-model="orderCriteria.despatchDateTo" md-placeholder="do:"></md-datepicker>
                         </div>
 
                         <div style="font-size: small;">
-                            Data wydania:
+                            Data wydania:<br>
                             <md-datepicker ng-model="orderCriteria.warehouseReleaseDateFrom" md-placeholder="od:"></md-datepicker>
                             <md-datepicker ng-model="orderCriteria.warehouseReleaseDateTo" md-placeholder="do:"></md-datepicker>
                         </div>
+
                         <div>
                             <br/>
                             <md-input-container>
                                 <label for="overdueDays">Przekroczony czas dostawy o dni</label>
-                                <input name="orderReference" id="overdueDays" type="number" data-ng-model="orderCriteria.overdueDays"/></md-input-container>
+                                <input name="orderReference" id="overdueDays" type="number" data-ng-model="orderCriteria.overdueDays"/>
+                            </md-input-container>
                         </div>
 
                     </form>

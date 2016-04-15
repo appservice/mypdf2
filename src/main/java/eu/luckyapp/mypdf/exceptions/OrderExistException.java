@@ -8,7 +8,7 @@ private String orderNumber;
 
 	@Override
 	public String getMessage() {
-		return "Zamówienie o numberze "+orderNumber+ " istnieje już w bazie danych!"; //super.getMessage();
+		return String.format("Zamówienie o numerze %s istnieje już w bazie danych!", orderNumber); //super.getMessage();
 	}
 
 	

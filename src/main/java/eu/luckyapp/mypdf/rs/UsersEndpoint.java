@@ -33,6 +33,9 @@ public class UsersEndpoint {
 		User user=new User();
 		
 		user.setName(context.getUserPrincipal().getName());
+		if(context.isUserInRole("ADMIN")){
+			user.setRoles("ADMIN");
+		}
 	
 		
 		return user;
